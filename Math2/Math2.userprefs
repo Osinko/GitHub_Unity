@@ -1,9 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\Math2\Assets\Pythagoras4.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Pythagoras4.cs">
     <Files>
-      <File FileName="..\Math2\Assets\Pythagoras4.cs" Line="1" Column="1" />
-      <File FileName="..\Math2\Assets\DrawGraph.cs" Line="4" Column="33" />
+      <File FileName="Assets\Pythagoras4.cs" Line="1" Column="1" />
+      <File FileName="Assets\DrawGraph.cs" Line="4" Column="33" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

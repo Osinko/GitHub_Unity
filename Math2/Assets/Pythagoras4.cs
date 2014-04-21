@@ -4,14 +4,13 @@ using System.Collections;
 public class Pythagoras4 : MonoBehaviour {
 	
 
-	DrawGraph2 dg;
+	DrawGraph dg;
 	//DrawGraphAnimMesh animMesh;		//dg内とは別のライフスパンなどを持っているクラス
 
 	void Start () {
 
-		dg = new DrawGraph2();
-		GameObject go = Instantiate(Resources.Load("VectorMesh")) as GameObject;
-		VectorMesh vectorMesh = go.GetComponent<VectorMesh>();
+		GameObject go = Instantiate(Resources.Load("DrawGraph")) as GameObject;
+		DrawGraph dg = go.GetComponent<DrawGraph>();
 		
 		
 		dg.AddLine("Line1" , Vector3.zero , new Vector3(2,2,2), Color.red);

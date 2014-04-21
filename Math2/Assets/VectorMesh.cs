@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class VectorMesh : MonoBehaviour {
 
+	GameObject root;
 	MeshFilter mf;
 	Mesh mesh;
 	
@@ -36,6 +37,12 @@ public class VectorMesh : MonoBehaviour {
 		colorPointOn = false;
 		LifeTimeOn = false;
 		face = Face.xy;
+	}
+
+	void Start ()
+	{
+		root = GameObject.Find("DrawGraphRoot");
+		transform.parent = root.transform;
 	}
 
 	public virtual void Update ()
