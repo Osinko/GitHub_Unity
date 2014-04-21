@@ -8,7 +8,7 @@ public class DrawGraph : MonoBehaviour {
 	//このクラス自身が複数のゲームオブジェクトメッシュを管理している
 	Dictionary<string , VectorMesh> with = new Dictionary<string, VectorMesh>();
 
-	void Start ()
+	void Awake ()
 	{
 		GameObject root = new GameObject("DrawGraphRoot");
 	}

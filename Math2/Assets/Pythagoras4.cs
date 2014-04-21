@@ -10,7 +10,7 @@ public class Pythagoras4 : MonoBehaviour {
 	void Start () {
 
 		GameObject go = Instantiate(Resources.Load("DrawGraph")) as GameObject;
-		DrawGraph dg = go.GetComponent<DrawGraph>();
+		dg = go.GetComponent<DrawGraph>();
 		
 		
 		dg.AddLine("Line1" , Vector3.zero , new Vector3(2,2,2), Color.red);
