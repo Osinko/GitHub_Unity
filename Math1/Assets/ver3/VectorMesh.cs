@@ -10,7 +10,7 @@ class VectorMesh : MonoBehaviour {
 		xy,
 		zx,
 		yz,
-	};aaa
+	};
 
 	public Vector3[]	vertices;
 	public Vector2[]	uvs;
