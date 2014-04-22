@@ -64,6 +64,42 @@ public class DrawGraph : MonoBehaviour {
 	}
 
 
+	public void AddCircle (string name, Vector3 position, float radius, int numberOfPoints, Color color)
+	{
+		GameObject go = Instantiate(Resources.Load("VectorMesh")) as GameObject;
+		VectorMesh vectorMesh = go.GetComponent<VectorMesh>();
+		
+		vectorMesh.root = gameObject;
+
+		Vector3[] vertices;
+		Vector2[] uvs;
+		int[] lines;
+
+		Vector3 point = Vector3.up*radius;
+		vertices = new Vector3[numberOfPoints+1];
+		uvs = new Vector2[numberOfPoints+1];
+		lines = new int[numberOfPoints*3];
+
+		float angle = -360.0f / numberOfPoints;
+		for (int v = 1,t = 1 ; v < vertices.Length; v++,t+=3 ) {
+			vertices[v]= Quaternion.Euler(0,0,angle*(v-1))*point;
+			
+			lines[t] = v;        //0,1,2, 0,2,3 0,3,4 0,4,5 のようなインデックスが出来る
+			lines[t+1]= v+1;
+			
+			uvs[v]=Vector2.zero;
+		}
+		lines[lines.Length-1]=1;
+
+		vectorMesh.vertices = vertices;
+		vectorMesh.lines = MakeIndices(lines);
+		vectorMesh.uvs = uvs;
+
+		with.Add(name,vectorMesh);
+
+	}
+
+
 	public void AddGrid(string name , Color color , float gridSize = 1.0f , int size = 8 )
 	{
 		GameObject go = Instantiate(Resources.Load("VectorMesh")) as GameObject;
@@ -108,6 +144,24 @@ public class DrawGraph : MonoBehaviour {
 		vectorMesh.color = color;
 		
 		with.Add(name,vectorMesh);
+	}
+
+
+	//メッシュのトポロジーをMeshTopology.Trianglesから2点一組のMeshTopology.Linesに変換する
+	public int[] MakeIndices(int[] triangles)
+	{
+		int[] indices = new int[2 * triangles.Length];
+		int i = 0;
+		for( int t = 0; t < triangles.Length; t+=3 )
+		{
+			indices[i++] = triangles[t];        //start
+			indices[i++] = triangles[t + 1];   //end
+			indices[i++] = triangles[t + 1];   //start
+			indices[i++] = triangles[t + 2];   //end
+			indices[i++] = triangles[t + 2];   //start
+			indices[i++] = triangles[t];        //end
+		}
+		return indices;
 	}
 
 
