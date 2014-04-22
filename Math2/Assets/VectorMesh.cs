@@ -136,7 +136,8 @@ public class VectorMesh : MonoBehaviour {
 			break;
 		case Face.yz:
 			rotDirection = Vector3.right;
-		break;        default:
+			break;
+		default:
 			rotDirection = Vector3.forward;
 			break;
 		}
