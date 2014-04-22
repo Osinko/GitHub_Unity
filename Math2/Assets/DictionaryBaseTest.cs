@@ -27,7 +27,9 @@ public class DictionaryBaseTest : MonoBehaviour {
 		}
 		
 		public void Add(string key,Vector3 value){
-			if(Dictionary.Contains(key)){//TODO
+			if(Dictionary.Contains(key)){
+				Dictionary.Remove(key);
+			}
 			Dictionary.Add(key,value);
 		}
 		

@@ -1,12 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\DictionaryBaseTest.cs">
     <Files>
-      <File FileName="Assets\DrawGraph.cs" Line="50" Column="3" />
-      <File FileName="Assets\VectorMesh.cs" Line="84" Column="2" />
-      <File FileName="Assets\Pythagoras4.cs" Line="17" Column="42" />
-      <File FileName="Assets\VectorMeshDictionary.cs" Line="20" Column="29" />
-      <File FileName="Assets\DictionaryBaseTest.cs" Line="24" Column="9" />
+      <File FileName="Assets\Pythagoras4.cs" Line="1" Column="1" />
+      <File FileName="Assets\DrawGraph.cs" Line="1" Column="1" />
+      <File FileName="Assets\VectorMesh.cs" Line="1" Column="1" />
+      <File FileName="Assets\Pythagoras4.cs" Line="1" Column="1" />
+      <File FileName="Assets\VectorMeshDictionary.cs" Line="1" Column="1" />
+      <File FileName="Assets\DictionaryBaseTest.cs" Line="32" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
