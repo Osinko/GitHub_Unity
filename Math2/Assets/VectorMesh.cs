@@ -24,11 +24,11 @@ public class VectorMesh : MonoBehaviour {
 	public Face			face;
 	public int[]		lines;
 
-	bool cullBack;
-	bool colorPointOn;
-	bool pause;
-	bool LifeTimeOn;
-	float VectorMeshLifeTime;
+	public bool cullBack;
+	public bool colorPointOn;
+	public bool pause;
+	public bool LifeTimeOn;
+	public float VectorMeshLifeTime;
 
 	public virtual void Awake ()
 	{
@@ -46,7 +46,7 @@ public class VectorMesh : MonoBehaviour {
 
 	public virtual void Update ()
 	{
-		if(pause || vertices!=null){return;}
+		if(pause || vertices == null){return;}
 
 		if(LifeTimeOn){
 			VectorMeshLifeTime -= Time.deltaTime;
@@ -83,4 +83,8 @@ public class VectorMesh : MonoBehaviour {
 	}
 
 
+	public void OnRemoveComplete ()
+	{
+		Destroy(gameObject);
+	}
 }

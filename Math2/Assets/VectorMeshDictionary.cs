@@ -40,4 +40,11 @@ public class VectorMeshDictionary : DictionaryBase {
 		base.OnInsertComplete (key, value);
 	}
 
+	protected override void OnRemoveComplete (object key, object value)
+	{
+		VectorMesh vm = (VectorMesh) value;
+		vm.OnRemoveComplete();
+		base.OnRemoveComplete (key, value);
+	}
+
 }

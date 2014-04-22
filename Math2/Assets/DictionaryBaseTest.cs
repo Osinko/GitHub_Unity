@@ -27,6 +27,7 @@ public class DictionaryBaseTest : MonoBehaviour {
 		}
 		
 		public void Add(string key,Vector3 value){
+			if(Dictionary.Contains(key)){//TODO
 			Dictionary.Add(key,value);
 		}
 		
@@ -61,6 +62,7 @@ public class DictionaryBaseTest : MonoBehaviour {
 		tes.Add("D",Vector3.up);
 		tes.Add("E",Vector3.right);
 		tes.Remove("B");
+		tes.Add("E",Vector3.right);
 		
 		foreach (DictionaryEntry item in tes) {
 			print( string.Format("{0,-10}:{1}",item.Key,item.Value) );
