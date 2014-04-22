@@ -22,6 +22,9 @@ public class VectorMeshDictionary : DictionaryBase {
 	}
 	
 	public void Add(string key,VectorMesh value){
+		if(Dictionary.Contains(key)){
+			Dictionary.Remove(key);
+		}
 		Dictionary.Add(key,value);
 	}
 	

@@ -15,7 +15,10 @@ public class Pythagoras4 : MonoBehaviour {
 		
 		dg.AddLine("Line1" , Vector3.zero , new Vector3(2,2,2), Color.red);
 		dg.Set("Line1").VectorMeshLifeTime = 5.0f;
-		dg.Set("Line1").LifeTimeOn = true;
+		dg.Set("Line1").LifeTimeOn = false;
+		dg.Set("Line1").colorPoint = new Color[]{Color.red,Color.blue};
+		dg.Set("Line1").colorPointOn = true;
+
 		dg.AddLine("Line2" , new Vector3(3,4,2) , new Vector3(2,2,2), Color.green);
 		
 		dg.AddBox("Box1",new Rect(0,0,5,5), Color.yellow);
@@ -28,6 +31,7 @@ public class Pythagoras4 : MonoBehaviour {
 
 		if(Input.GetMouseButton(0)){
 			dg.AddLine("Line2" , new Vector3(2,2,0) , new Vector3(8,6,4), Color.cyan);
+			dg.Set("Line1").colorPointOn = false;
 		}
 
 		if( Input.GetButton("Jump")){
