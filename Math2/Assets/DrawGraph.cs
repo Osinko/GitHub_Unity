@@ -64,7 +64,7 @@ public class DrawGraph : MonoBehaviour {
 	}
 
 
-	public void AddCircle (string name, Vector3 position, float radius, int numberOfPoints, Color color)
+	public void AddCircle (string name, Vector3 position, float radius, int numberOfPoints, Color color,bool vectorCircleOn = true)
 	{
 		GameObject go = Instantiate(Resources.Load("VectorMesh")) as GameObject;
 		VectorMesh vectorMesh = go.GetComponent<VectorMesh>();
@@ -76,31 +76,46 @@ public class DrawGraph : MonoBehaviour {
 		int[] lines;
 
 		Vector3 point = Vector3.up*radius;
-		vertices = new Vector3[numberOfPoints+1];
-		uvs = new Vector2[numberOfPoints+1];
-		lines = new int[numberOfPoints*3];
+		if(vectorCircleOn){
+			float angle = -360.0f / numberOfPoints;
+			vertices = new Vector3[numberOfPoints];
+			uvs = new Vector2[numberOfPoints];
+			lines = new int[numberOfPoints+1];
+			for (int v = 0; v < vertices.Length; v++) {
+				vertices[v]= Quaternion.Euler(0,0,angle*(v-1))*point;
+				uvs[v]=Vector2.zero;
+				lines[v] = v;
+			}
+			lines[lines.Length-1]=0;	//TODO
+			vectorMesh.vertices = vertices;
+			vectorMesh.lines = lines;
+			vectorMesh.uvs = uvs;
+		}else{
+			vertices = new Vector3[numberOfPoints+1];
+			uvs = new Vector2[numberOfPoints+1];
+			lines = new int[numberOfPoints*3];
 
-		float angle = -360.0f / numberOfPoints;
-		for (int v = 1,t = 1 ; v < vertices.Length; v++,t+=3 ) {
-			vertices[v]= Quaternion.Euler(0,0,angle*(v-1))*point;
-			
-			lines[t] = v;        //0,1,2, 0,2,3 0,3,4 0,4,5 のようなインデックスが出来る
-			lines[t+1]= v+1;
-			
-			uvs[v]=Vector2.zero;
+			float angle = -360.0f / numberOfPoints;
+			for (int v = 1,t = 1 ; v < vertices.Length; v++,t+=3 ) {
+				vertices[v]= Quaternion.Euler(0,0,angle*(v-1))*point;
+				
+				lines[t] = v;        //0,1,2, 0,2,3 0,3,4 0,4,5 のようなインデックスが出来る
+				lines[t+1]= v+1;
+				
+				uvs[v]=Vector2.zero;
+			}
+			lines[lines.Length-1]=1;
+			vectorMesh.vertices = vertices;
+			vectorMesh.lines = MakeIndices(lines);
+			vectorMesh.uvs = uvs;
 		}
-		lines[lines.Length-1]=1;
-
-		vectorMesh.vertices = vertices;
-		vectorMesh.lines = MakeIndices(lines);
-		vectorMesh.uvs = uvs;
 
 		with.Add(name,vectorMesh);
 
 	}
 
 
-	public void AddGrid(string name , Color color , float gridSize = 1.0f , int size = 8 )
+	public void AddGrid(string name , Color color , float gridSize = 1.0f , int size = 8)
 	{
 		GameObject go = Instantiate(Resources.Load("VectorMesh")) as GameObject;
 		VectorMesh vectorMesh = go.GetComponent<VectorMesh>();

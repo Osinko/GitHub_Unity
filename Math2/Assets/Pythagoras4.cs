@@ -25,7 +25,7 @@ public class Pythagoras4 : MonoBehaviour {
 		
 		dg.AddBox("Box1",new Rect(0,0,5,5), Color.yellow);
 
-		dg.AddCircle("Circle1",Vector3.zero,1.5f,8,Color.white);//TODO
+		dg.AddCircle("Circle1",Vector3.zero,1.5f,8,Color.white,true);//TODO
 
 		//dg.AddMesh();
 		//dg.AddDrawGraph("Graph1",animMesh,Color.white,Face.xy);
