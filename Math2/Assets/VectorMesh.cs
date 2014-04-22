@@ -5,8 +5,8 @@ using System.Collections.Generic;
 
 public class VectorMesh : MonoBehaviour {
 
-	GameObject root;
 	MeshFilter mf;
+	MeshRenderer mr;
 	Mesh mesh;
 	
 	//表示面の方向　
@@ -16,6 +16,7 @@ public class VectorMesh : MonoBehaviour {
 		yz,
 	};
 
+	public GameObject	root;
 	public Vector3[]	vertices;
 	public Vector2[]	uvs;
 	public Color[] 		colorPoint;
@@ -23,6 +24,7 @@ public class VectorMesh : MonoBehaviour {
 	public Face			face;
 	public int[]		lines;
 
+	bool cullBack;
 	bool colorPointOn;
 	bool pause;
 	bool LifeTimeOn;
@@ -31,18 +33,15 @@ public class VectorMesh : MonoBehaviour {
 	public virtual void Awake ()
 	{
 		mf = gameObject.AddComponent<MeshFilter>();
+		mr = gameObject.AddComponent<MeshRenderer>();
 		mesh = mf.mesh;
 		mesh.Clear();
+
 		color = Color.white;
+		cullBack = false;
 		colorPointOn = false;
 		LifeTimeOn = false;
 		face = Face.xy;
-	}
-
-	void Start ()
-	{
-		root = GameObject.Find("DrawGraphRoot");
-		transform.parent = root.transform;
 	}
 
 	public virtual void Update ()
@@ -55,8 +54,33 @@ public class VectorMesh : MonoBehaviour {
 		}
 	}
 
-	public void VectorMeshCreate ()
-	{
+	public virtual void OnInsertComplete(){
+
+		//呼び出し元のDrawGraphオブジェクトの子にする
+		transform.parent = root.transform;
+		
+		if(cullBack){
+			mr.material = new Material(Shader.Find("Sprites/Default"));
+		}else{
+			mr.material = new Material(Shader.Find("GUI/Text Shader"));
+		}
+
+		mesh.vertices = vertices;
+		mesh.uv = uvs;
+
+		Color[] setColor;
+		setColor = new Color[vertices.Length];
+		if(colorPointOn){
+			setColor = colorPoint;
+		}else{
+			for (int i = 0; i < setColor.Length; i++) {
+				setColor[i] = color;
+			}
+		}
+		mesh.colors =setColor;
+
+		mesh.SetIndices(lines,MeshTopology.Lines,0);
 	}
+
 
 }

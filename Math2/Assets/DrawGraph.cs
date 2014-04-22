@@ -6,24 +6,20 @@ using System.Collections.Generic;
 public class DrawGraph : MonoBehaviour {
 	
 	//このクラス自身が複数のゲームオブジェクトメッシュを管理している
-	Dictionary<string , VectorMesh> with = new Dictionary<string, VectorMesh>();
+	VectorMeshDictionary with = new VectorMeshDictionary();
 
-	void Awake ()
-	{
-		GameObject root = new GameObject("DrawGraphRoot");
-	}
+	GameObject root;
 
 	public void AddLine (string name, Vector3 start, Vector3 end, Color color)
 	{
-
 		GameObject go = Instantiate(Resources.Load("VectorMesh")) as GameObject;
 		VectorMesh vectorMesh = go.GetComponent<VectorMesh>();
 
+		vectorMesh.root = gameObject;
 		vectorMesh.vertices = new Vector3[]{start,end,};
 		vectorMesh.uvs = new Vector2[]{Vector2.zero,Vector2.zero,};
-		vectorMesh.lines = new int[]{0,1,1,2,};
+		vectorMesh.lines = new int[]{0,1,};
 		vectorMesh.color = color;
-		vectorMesh.VectorMeshCreate();
 		
 		with.Add(name,vectorMesh);
 	}
@@ -34,6 +30,7 @@ public class DrawGraph : MonoBehaviour {
 		GameObject go = Instantiate(Resources.Load("VectorMesh")) as GameObject;
 		VectorMesh vectorMesh = go.GetComponent<VectorMesh>();
 
+		vectorMesh.root = gameObject;
 		vectorMesh.vertices = new Vector3[]{
 			new Vector3(rect.xMin,rect.yMin,0),
 			new Vector3(rect.xMax,rect.yMin,0),
@@ -42,7 +39,7 @@ public class DrawGraph : MonoBehaviour {
 		};
 		
 		vectorMesh.uvs = new Vector2[]{Vector2.zero,Vector2.zero,Vector2.zero,Vector2.zero,};
-		vectorMesh.lines = new int[]{0,1,1,2,2,3,3,4};
+		vectorMesh.lines = new int[]{0,1,1,2,2,3,3,0};
 		vectorMesh.color = color;
 		
 		with.Add(name,vectorMesh);
