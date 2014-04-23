@@ -17,8 +17,8 @@ public class GridVectorMesh : VectorMesh {
 
 	public override void Awake ()
 	{
-		column=4;
-		row =4;
+		column=5;
+		row =5;
 		girdSizeX=1.0f;
 		girdSizeY=1.0f;
 
@@ -49,7 +49,7 @@ public class GridVectorMesh : VectorMesh {
 
 		Vector2 startPosition = new Vector2 (-(totalX), -(totalY));
 		Vector2 endPosition = new Vector2 ((totalX) , (totalY));
-		int resolution = ((column * row) + 2) * 2;	//最期の２辺を追加している 
+		int resolution = ((column+1)*2) + ((row+1)*2);
 
 		vertices = new Vector3[resolution];
 		uvs = new Vector2[resolution];
@@ -58,13 +58,13 @@ public class GridVectorMesh : VectorMesh {
 		float diffx = girdSizeX/2;
 		float diffy = girdSizeY/2;
 
-		for (int x = 0; x < (column*2)+1; x+=2) {
+		for (int x = 0; x < ((column+1)*2); x+=2) {
 			vertices [x] = new Vector3 (startPosition.x + (diffx * (float)x), startPosition.y, 0);
 			vertices [x+1] = new Vector3 (startPosition.x + (diffx * (float)x), endPosition.y, 0);
 		}
-		for (int y = 0; y < (row*2)+1; y+=2) {
-			vertices [(resolution/2) + y] = new Vector3 (startPosition.x, endPosition.y - (diffy * (float)y), 0);
-			vertices [(resolution/2) + y+1] = new Vector3 (endPosition.x, endPosition.y - (diffy * (float)y), 0);
+		for (int y = 0; y < ((row+1)*2); y+=2) {
+			vertices [(column*2)+2 + y] = new Vector3 (startPosition.x, endPosition.y - (diffy * (float)y), 0);
+			vertices [(column*2)+2 + y+1] = new Vector3 (endPosition.x, endPosition.y - (diffy * (float)y), 0);
 		}
 
 
