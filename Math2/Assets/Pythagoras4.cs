@@ -15,42 +15,33 @@ public class Pythagoras4 : MonoBehaviour {
 
 		GameObject go = Instantiate(Resources.Load("DrawGraph")) as GameObject;
 		dg = go.GetComponent<DrawGraph>();
-		
-		dg.AddLine("Line1" , Vector3.zero , new Vector3(2,2,2), Color.red);
-		dg.Set("Line1").VectorMeshLifeTime = 5.0f;
-		dg.Set("Line1").LifeTimeOn = false;
-		dg.Set("Line1").colorPoint = new Color[]{Color.red,Color.blue};
-		dg.Set("Line1").colorPointOn = true;
-		dg.AddGrid("Grid1",Color.white);
 
-		dg.AddTriangle("Triangle1" , Vector3.zero,new Vector3(0,1,0),new Vector3(1,1,0),Color.grey);
-		dg.AddLine("Line2" , new Vector3(3,4,2) , new Vector3(2,2,2), Color.green);
-		
-		dg.AddBox("Box1",new Rect(0,0,5,5), Color.yellow);
+		GameObject vmGameObject = Instantiate(Resources.Load("VectorMesh")) as GameObject;
+		VectorMesh vm = vmGameObject.GetComponent<VectorMesh>();
 
-		dg.AddCircle("Circle1",Vector3.zero,1.5f,128,Color.white,true);
+		//dg.AddAnimationDrawGraph();
 
-		//dg.AddMesh();
-		//dg.AddDrawGraph("Graph1",animMesh,Color.white,Face.xy);
+		dg.AddCircle("Circle1",Vector3.zero,3,128,Color.grey);
 
+		dg.AddLine("Line1",new Vector3( -5.0f , 3.0f , 0.0f ),new Vector3( 20.0f , 3.0f , 0.0f ),Color.cyan);
+		dg.AddLine("Line2",new Vector3( -5.0f , 0.0f , 0.0f ),new Vector3( 20.0f , 0.0f , 0.0f ),Color.cyan);
+		dg.AddLine("Line3",new Vector3( -5.0f , -3.0f , 0.0f ),new Vector3( 20.0f , -3.0f , 0.0f ),Color.cyan);
+
+		dg.AddLine("Line4",new Vector3( -3.0f , 5.0f , 0.0f ),new Vector3( -3.0f , -20.0f , 0.0f ),Color.cyan);
+		dg.AddLine("Line5",new Vector3( 0.0f , 5.0f , 0.0f ),new Vector3( 0.0f , -20.0f , 0.0f ),Color.cyan);
+		dg.AddLine("Line6",new Vector3( 3.0f , 5.0f , 0.0f ),new Vector3( 3.0f , -20.0f , 0.0f ),Color.cyan);
+
+		dg.AddGrid("Grid1",new Color(100,100,100,0.2f),1.0f/2.0f,2*6);
+		dg.Set("Grid1").transform.position = new Vector3(8,0,0);		//普通にゲームオブジェクトとして扱えます
 	}
 
 	void Update ()
 	{
 
 		if(Input.GetMouseButton(0)){
-			dg.AddLine("Line2" , new Vector3(2,2,0) , new Vector3(8,6,4), Color.cyan);
-			dg.Set("Line1").colorPointOn = false;
-			dg.Set("Grid1").visible = !dg.Set("Grid1").visible;
-			dg.AddCircle("Circle1",Vector3.zero,3.0f,128,Color.white,true);
-			
 		}
 
 		if( Input.GetButton("Jump")){
-			dg.Remove("Line2");
-			dg.Remove("Box1");
-			dg.Remove("Grid1");
-			dg.Clear();
 		}
 	}
 

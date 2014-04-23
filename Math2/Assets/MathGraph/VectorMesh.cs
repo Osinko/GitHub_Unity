@@ -114,7 +114,7 @@ public class VectorMesh : MonoBehaviour {
 			setColor = colorPoint;
 		}
 		else {
-			for (int i = 0; i < setColor.Length; i++) {
+			for (int i = 0; i < vertices.Length; i++) {
 				setColor [i] = color;
 			}
 		}
