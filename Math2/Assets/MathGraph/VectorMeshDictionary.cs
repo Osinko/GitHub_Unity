@@ -43,14 +43,14 @@ public class VectorMeshDictionary : DictionaryBase {
 	protected override void OnInsertComplete (object key, object value)
 	{
 		VectorMesh vm = (VectorMesh) value;
-		vm.OnInsertComplete();
+		vm.OnInsertComplete();	//VectorMeshクラスの関数を呼び出す
 		base.OnInsertComplete (key, value);
 	}
 
 	protected override void OnRemoveComplete (object key, object value)
 	{
 		VectorMesh vm = (VectorMesh) value;
-		vm.OnRemoveComplete();
+		vm.OnRemoveComplete();	//VectorMeshクラスの関数を呼び出す
 		base.OnRemoveComplete (key, value);
 	}
 

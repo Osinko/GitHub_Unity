@@ -125,51 +125,13 @@ public class DrawGraph : MonoBehaviour {
 	}
 
 	//TODO
-	public GridVectorMesh AddGrid(string name , Color color , float gridSize = 1.0f , int size = 8)
+	public GridVectorMesh AddGrid(string name , Color color , float gridSize = 1.0f , int totalSize = 8)
 	{
 		GameObject go = Instantiate(Resources.Load("GridVectorMesh")) as GameObject;
 		GridVectorMesh vectorMesh = go.GetComponent<GridVectorMesh>();
 		
-		vectorMesh.root = gameObject;
-
-		int		drawSize;
-		float	width;
-		int		resolution;
-		float	diff;
-
-		Vector3[] vertices;
-		Vector2[] uvs;
-		int[] lines;
-
-		drawSize = size * 2;
-		width = gridSize * drawSize / 4.0f;
-		Vector2 startPosition = new Vector2 (-width, -width);
-		Vector2 endPosition = new Vector2 (width, width);
-		diff = width / drawSize;
-		resolution = (drawSize + 2) * 2;	//最期の２辺を追加している
-
-		vertices = new Vector3[resolution];
-		uvs = new Vector2[resolution];
-		lines = new int[resolution];
-
-		for (int i = 0; i < vertices.Length; i += 4) {
-			vertices [i] = new Vector3 (startPosition.x + (diff * (float)i), startPosition.y, 0);
-			vertices [i + 1] = new Vector3 (startPosition.x + (diff * (float)i), endPosition.y, 0);
-			vertices [i + 2] = new Vector3 (startPosition.x, endPosition.y - (diff * (float)i), 0);
-			vertices [i + 3] = new Vector3 (endPosition.x, endPosition.y - (diff * (float)i), 0);
-		}
-		
-		for (int i = 0; i < resolution; i++) {
-			lines [i] = i;
-		}
-
-		vectorMesh.vertices = vertices;
-		vectorMesh.uvs = uvs;
-		vectorMesh.lines = lines;
-		vectorMesh.color = color;
-		
+		vectorMesh.CreateGridVectorMesh(gridSize,totalSize,color);
 		with.Add(name,vectorMesh);
-
 		return vectorMesh;
 	}
 

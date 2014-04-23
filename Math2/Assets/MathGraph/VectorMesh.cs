@@ -47,7 +47,8 @@ public class VectorMesh : MonoBehaviour {
 		mr = gameObject.AddComponent<MeshRenderer>();
 		mesh = mf.mesh;
 		mesh.Clear();
-
+		root = gameObject;
+		
 		visible = true;
 		color = Color.white;
 		cullBack = false;
@@ -61,6 +62,7 @@ public class VectorMesh : MonoBehaviour {
 		facePrev = face;
 
 	}
+
 
 	public virtual void Update ()
 	{
