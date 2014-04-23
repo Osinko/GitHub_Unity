@@ -3,6 +3,11 @@ using System.Collections;
 
 using System.Collections.Generic;
 
+/// <summary>
+/// Vector mesh.
+/// 全てのベクターメッシュの基底となるクラス
+/// このクラスに登録された機能は共通機能となる
+/// </summary>
 public class VectorMesh : MonoBehaviour {
 
 	MeshFilter mf;
@@ -24,12 +29,14 @@ public class VectorMesh : MonoBehaviour {
 	public Face			face;
 	public int[]		lines;
 
+	public bool visible;
 	public bool cullBack;
 	public bool colorPointOn;
 	public bool pause;
 	public bool LifeTimeOn;
 	public float VectorMeshLifeTime;
 
+	bool visiblePrev;
 	bool colorPointOnPrev;
 	bool cullBackPrev;
 	Face facePrev;
@@ -41,12 +48,14 @@ public class VectorMesh : MonoBehaviour {
 		mesh = mf.mesh;
 		mesh.Clear();
 
+		visible = true;
 		color = Color.white;
 		cullBack = false;
 		colorPointOn = false;
 		LifeTimeOn = false;
 		face = Face.xy;
 
+		visiblePrev = visible;
 		colorPointOnPrev = colorPointOn;
 		cullBackPrev = cullBack;
 		facePrev = face;
@@ -55,6 +64,11 @@ public class VectorMesh : MonoBehaviour {
 
 	public virtual void Update ()
 	{
+		if(visible != visiblePrev){
+			mr.enabled = visible;
+			visiblePrev = visible;
+		}
+
 		if(pause || vertices == null){return;}
 
 		if(colorPointOn!=colorPointOnPrev){
@@ -79,20 +93,6 @@ public class VectorMesh : MonoBehaviour {
 
 	}
 
-	public virtual void OnInsertComplete(){
-
-		//呼び出し元のDrawGraphオブジェクトの子にする
-		transform.parent = root.transform;
-		
-		CullModeChange ();
-
-		mesh.vertices = RotationVertices(vertices);
-		mesh.uv = uvs;
-
-		ColorModeChange ();
-
-		mesh.SetIndices(lines,MeshTopology.Lines,0);
-	}
 
 	void CullModeChange ()
 	{
@@ -152,7 +152,24 @@ public class VectorMesh : MonoBehaviour {
 		return ret;
 	}
 
-	public void OnRemoveComplete ()
+	//辞書クラスから適時呼び出される 
+	public virtual void OnInsertComplete(){
+		
+		//呼び出し元のDrawGraphオブジェクトの子にする 
+		transform.parent = root.transform;
+		
+		CullModeChange ();
+		
+		mesh.vertices = RotationVertices(vertices);
+		mesh.uv = uvs;
+		
+		ColorModeChange ();
+		
+		mesh.SetIndices(lines,MeshTopology.Lines,0);
+	}
+
+	//辞書クラスから適時呼び出される 
+	public virtual void OnRemoveComplete ()
 	{
 		Destroy(gameObject);
 	}

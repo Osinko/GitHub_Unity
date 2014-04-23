@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// ベクターメッシュを管理するためのカスタム化された専用辞書クラス
+/// 適切なタイミングでVectorMeshクラスのOn～機能などを呼んでいる点に特徴がある
+/// </summary>
 public class VectorMeshDictionary : DictionaryBase {
 	
 	//ここでDictionaryを使えるようにしている

@@ -77,20 +77,29 @@ public class DrawGraph : MonoBehaviour {
 
 		Vector3 point = Vector3.up*radius;
 		if(vectorCircleOn){
+
 			float angle = -360.0f / numberOfPoints;
 			vertices = new Vector3[numberOfPoints];
 			uvs = new Vector2[numberOfPoints];
-			lines = new int[numberOfPoints+1];
+			lines = new int[numberOfPoints*2];
 			for (int v = 0; v < vertices.Length; v++) {
 				vertices[v]= Quaternion.Euler(0,0,angle*(v-1))*point;
 				uvs[v]=Vector2.zero;
-				lines[v] = v;
 			}
-			lines[lines.Length-1]=0;	//TODO
+
+			//連続する線のトポロジを作成
+			for (int i = 0, j = 0 ; i < lines.Length; i+=2,j++) {
+				lines[i]=j;
+				lines[i+1]=j+1;
+			}
+			lines[lines.Length-1]=0;
+
 			vectorMesh.vertices = vertices;
 			vectorMesh.lines = lines;
 			vectorMesh.uvs = uvs;
+
 		}else{
+
 			vertices = new Vector3[numberOfPoints+1];
 			uvs = new Vector2[numberOfPoints+1];
 			lines = new int[numberOfPoints*3];
@@ -108,6 +117,7 @@ public class DrawGraph : MonoBehaviour {
 			vectorMesh.vertices = vertices;
 			vectorMesh.lines = MakeIndices(lines);
 			vectorMesh.uvs = uvs;
+
 		}
 
 		with.Add(name,vectorMesh);
@@ -188,6 +198,21 @@ public class DrawGraph : MonoBehaviour {
 	public void Remove(string name)
 	{
 		with.Remove(name);
+	}
+
+	public void Clear(){
+		string[] removeList = new string[with.Count];
+		int i=0;
+
+		//DictionaryBase内の辞書データーの名前やキーを取り出す際はDictionaryEntryクラスを利用する
+		foreach (DictionaryEntry item in with) {
+			removeList[i] = (string)item.Key;
+			i++;
+		}
+		//foreachは基本的に非破壊操作なのでこうする必要がある
+		for (int j = 0; j < removeList.Length; j++) {
+			with.Remove(removeList[j]);
+		}
 	}
 
 

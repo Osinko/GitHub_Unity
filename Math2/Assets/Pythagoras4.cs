@@ -1,17 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+/// <summary>
+/// Pythagoras4.
+/// ベクター描画をテストするプログラム
+/// </summary>
 public class Pythagoras4 : MonoBehaviour {
 	
-
 	DrawGraph dg;
-	//DrawGraphAnimMesh animMesh;		//dg内とは別のライフスパンなどを持っているクラス
+	AnimationVectorMesh animVecMesh;
 
 	void Start () {
 
 		GameObject go = Instantiate(Resources.Load("DrawGraph")) as GameObject;
 		dg = go.GetComponent<DrawGraph>();
-		
 		
 		dg.AddLine("Line1" , Vector3.zero , new Vector3(2,2,2), Color.red);
 		dg.Set("Line1").VectorMeshLifeTime = 5.0f;
@@ -25,7 +28,7 @@ public class Pythagoras4 : MonoBehaviour {
 		
 		dg.AddBox("Box1",new Rect(0,0,5,5), Color.yellow);
 
-		dg.AddCircle("Circle1",Vector3.zero,1.5f,8,Color.white,true);//TODO
+		dg.AddCircle("Circle1",Vector3.zero,1.5f,128,Color.white,true);
 
 		//dg.AddMesh();
 		//dg.AddDrawGraph("Graph1",animMesh,Color.white,Face.xy);
@@ -38,13 +41,16 @@ public class Pythagoras4 : MonoBehaviour {
 		if(Input.GetMouseButton(0)){
 			dg.AddLine("Line2" , new Vector3(2,2,0) , new Vector3(8,6,4), Color.cyan);
 			dg.Set("Line1").colorPointOn = false;
-			dg.AddGrid("Grid1",Color.white,2,8);
+			dg.Set("Grid1").visible = !dg.Set("Grid1").visible;
+			dg.AddCircle("Circle1",Vector3.zero,3.0f,128,Color.white,true);
+			
 		}
 
 		if( Input.GetButton("Jump")){
 			dg.Remove("Line2");
 			dg.Remove("Box1");
 			dg.Remove("Grid1");
+			dg.Clear();
 		}
 	}
 
