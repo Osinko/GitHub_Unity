@@ -124,13 +124,12 @@ public class DrawGraph : MonoBehaviour {
 
 	}
 
-	//TODO
-	public GridVectorMesh AddGrid(string name , Color color , float gridSize = 1.0f , int totalSize = 8)
+	public GridVectorMesh AddGrid(string name , int column , int row , Color color, float girdSizeX = 1,float girdSizeY = 1)
 	{
 		GameObject go = Instantiate(Resources.Load("GridVectorMesh")) as GameObject;
 		GridVectorMesh vectorMesh = go.GetComponent<GridVectorMesh>();
 		
-		vectorMesh.CreateGridVectorMesh(gridSize,totalSize,color);
+		vectorMesh.CreateGridVectorMesh(column , row , color, girdSizeX ,girdSizeY);
 		with.Add(name,vectorMesh);
 		return vectorMesh;
 	}

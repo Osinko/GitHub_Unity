@@ -1,84 +1,82 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-//TODO
 public class GridVectorMesh : VectorMesh {
 
-	public float	gridSize;
-	public int		totalSize;
+	public int		column;
+	public int		row;
+	public float	girdSizeX;
+	public float	girdSizeY;
 
-	public int repeatX;
-	public int repeatY;
 
-	//値変化検出用
-	float	gridSizePrev;
-	int 	totalSizePrev;
-	int 	repeatXprev;
-	int 	repeatYprev;
+	//値変化検出用 
+	int		columnPrev;
+	int 	rowPrev;
+	float 	girdSizeXPrev;
+	float 	girdSizeYPrev;
 
 	public override void Awake ()
 	{
-		gridSize=1;
-		totalSize=8;
-
-		repeatX=1;
-		repeatY=1;
-
-		gridSizePrev = gridSize;
-		totalSizePrev = totalSize;
-		repeatXprev = repeatX;
-		repeatYprev = repeatY;
+		column=4;
+		row =4;
+		girdSizeX=1.0f;
+		girdSizeY=1.0f;
 
 		base.Awake ();
 	}
 
-	void Start () {
-	}
-
 	public override void Update ()
 	{
-		if(gridSize!=gridSizePrev || totalSize!=totalSizePrev || repeatX!=repeatXprev || repeatY!=repeatYprev){
-			ReGridVectorMesh();
-		}
+
 		base.Update ();
 	}
 
-	public void CreateGridVectorMesh(float gridSize,int totalSize,Color color,int repeatX = 1 , int repeatY = 1){
-		this.gridSize = gridSize;
-		this.totalSize = totalSize;
-		this.totalSize = totalSize;
+	public void CreateGridVectorMesh(int column,int row,Color color,float girdSizeX = 1,float girdSizeY = 1){
 
-		this.repeatX = repeatX;
-		this.repeatY = repeatY;
+		this.column = column;
+		this.row = row;
+		this.girdSizeX = girdSizeX;
+		this.girdSizeY = girdSizeY;
 		this.color = color;
-		
+
 		ReGridVectorMesh();
 	}
 
 	public void ReGridVectorMesh(){
 
-		int		drawSize;
-		float	width;
-		int		resolution;
-		float	diff;
-		
-		drawSize = totalSize * 2;
-		width = gridSize * drawSize / 4.0f;
-		Vector2 startPosition = new Vector2 (-width, -width);
-		Vector2 endPosition = new Vector2 (width, width);
-		diff = width / drawSize;
-		resolution = (drawSize + 2) * 2;	//最期の２辺を追加している
-		
+		float totalX = (float)column * girdSizeX/2;
+		float totalY = (float)row * girdSizeY/2;
+
+		Vector2 startPosition = new Vector2 (-(totalX), -(totalY));
+		Vector2 endPosition = new Vector2 ((totalX) , (totalY));
+		int resolution = ((column * row) + 2) * 2;	//最期の２辺を追加している 
+
 		vertices = new Vector3[resolution];
 		uvs = new Vector2[resolution];
 		lines = new int[resolution];
-		
-		for (int i = 0; i < vertices.Length; i += 4) {
-			vertices [i] = new Vector3 (startPosition.x + (diff * (float)i), startPosition.y, 0);
-			vertices [i + 1] = new Vector3 (startPosition.x + (diff * (float)i), endPosition.y, 0);
-			vertices [i + 2] = new Vector3 (startPosition.x, endPosition.y - (diff * (float)i), 0);
-			vertices [i + 3] = new Vector3 (endPosition.x, endPosition.y - (diff * (float)i), 0);
+
+		float diffx = girdSizeX/2;
+		float diffy = girdSizeY/2;
+
+		for (int x = 0; x < (column*2)+1; x+=2) {
+			vertices [x] = new Vector3 (startPosition.x + (diffx * (float)x), startPosition.y, 0);
+			vertices [x+1] = new Vector3 (startPosition.x + (diffx * (float)x), endPosition.y, 0);
 		}
+		for (int y = 0; y < (row*2)+1; y+=2) {
+			vertices [(resolution/2) + y] = new Vector3 (startPosition.x, endPosition.y - (diffy * (float)y), 0);
+			vertices [(resolution/2) + y+1] = new Vector3 (endPosition.x, endPosition.y - (diffy * (float)y), 0);
+		}
+
+
+//		float diffx = girdSizeX/4;
+//		float diffy = girdSizeY/4;
+//		for (int i = 0; i < (vertices.Length/2); i += 4) {
+//			vertices [i] = new Vector3 (startPosition.x + (diffx * (float)i), startPosition.y, 0);
+//			vertices [i + 1] = new Vector3 (startPosition.x + (diffx * (float)i), endPosition.y, 0);
+//			vertices [i + 2] = new Vector3 (startPosition.x, endPosition.y - (diffy * (float)i), 0);
+//			vertices [i + 3] = new Vector3 (endPosition.x, endPosition.y - (diffy * (float)i), 0);
+//		}
+
 		
 		for (int i = 0; i < resolution; i++) {
 			lines [i] = i;
@@ -87,7 +85,6 @@ public class GridVectorMesh : VectorMesh {
 		vertices = vertices;
 		uvs = uvs;
 		lines = lines;
-		color = color;
 	}
 
 }
