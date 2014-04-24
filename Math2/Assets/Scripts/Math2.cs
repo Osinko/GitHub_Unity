@@ -6,7 +6,7 @@ public class Math2 : MonoBehaviour {
 	DrawGraph dg;
 	AnimationSinVectorMesh animSin;
 
-	void Start () {
+	void Awake () {
 		
 		GameObject go = Instantiate(Resources.Load("DrawGraph")) as GameObject;
 		dg = go.GetComponent<DrawGraph>();
@@ -32,6 +32,9 @@ public class Math2 : MonoBehaviour {
 		//辞書に登録すればRemoveやカラー変更等の機能も一括管理で利用できる（登録するか、しないかは自由）
 		GameObject go2 = Instantiate(Resources.Load("AnimationSinVectorMesh")) as GameObject;
 		dg.AddVectorMeshObjcect("AnimationSinVectorMesh1" , go2.GetComponent<VectorMesh>() );
+
+		GameObject go3 = Instantiate(Resources.Load("AnimationSinVectorMesh")) as GameObject;
+		dg.AddVectorMeshObjcect("AnimationSinVectorMesh2" , go3.GetComponent<VectorMesh>() );
 
 		dg.DebugPrint();
 

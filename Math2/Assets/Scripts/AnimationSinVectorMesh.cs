@@ -5,39 +5,31 @@ using System.Linq;
 
 public class AnimationSinVectorMesh : VectorMesh {
 
-	public float Amplitude;	//振幅
-	public float speed;		//周期速度
-	public float theta;		//現在のθ
+	//グラフ描画用の各頂点をパーティクルのように扱う為のリストクラス
+	LinkedList<AnimMesh> verticesList;
+	SceneControler sc;
 
-	//カーブ制御用
-	float 	emissionRate = 24.0f;	//１秒間に24回産む
-	int 	maxParticle = 1000;
-	float 	startLifeTimes= 6.28f*2.0f;
+	public enum Curve{
+		sin,
+		cos
+	};
+
+	//カーブ制御
+	public float 	emissionRate = 		24.0f;		//１秒間に24回産む
+	public float 	startLifeTimes =	6.28f*2.0f;
+	public int	 	maxParticle = 		1000;
+	public Curve	curve;  
 	
-	LinkedList<AnimMesh> verticesList;	//グラフの描画用の各頂点をパーティクルのように扱っている
-
 	bool pointLink;
 	bool closeLink;
-	float diffTheta;
-	float sinPos;
-	float cosPos;
-
 	float emissionTimer;
-
-	ParticleSystem sinCosPS;
-	ParticleSystem.Particle[] sinCosPSpoints;
 
 	public override void Awake ()
 	{
-		Amplitude=3;
-		speed =5;		//５にすると５秒で１回転＿(5Hz（１秒で5回転）とは逆の動作になるので注意。5Hzにしたいなら0.2にする)
-		theta =0;
-
-		sinCosPS = gameObject.AddComponent<ParticleSystem>() as ParticleSystem;
-		sinCosPS.Stop();		//パーティクルを停めてコード制御するならコレが大事
-	
-		sinCosPSpoints = new ParticleSystem.Particle[3];
-
+		curve = Curve.sin;
+		GameObject controler = GameObject.Find("Level");
+		sc = controler.GetComponent<SceneControler>() as SceneControler;
+		
 		base.Awake ();
 	}
 
@@ -45,28 +37,10 @@ public class AnimationSinVectorMesh : VectorMesh {
 	{
 		verticesList =new LinkedList<AnimMesh>();
 		emissionTimer = 1 / emissionRate;
-		transform.Translate(new Vector3(5,0,0));
 	}
-
 
 	public override void Update ()
 	{
-		diffTheta = Mathf.PI * 2 /speed;
-		theta += diffTheta * Time.deltaTime;
-		theta %= Mathf.PI * 2;
-
-		sinPos = Amplitude * Mathf.Sin(theta);
-		cosPos = Amplitude * Mathf.Cos(theta);
-		
-		PerticleMethod (sinPos,cosPos);
-		SinWaveUpdate (sinPos);
-
-		base.Update ();
-	}
-
-	void SinWaveUpdate (float sinPos)
-	{
-
 		emissionTimer -= Time.deltaTime;
 		if(emissionTimer<0){
 			respawnVertices(verticesList);
@@ -79,10 +53,10 @@ public class AnimationSinVectorMesh : VectorMesh {
 		if(verticesList.Count!=0){
 			draw(LinkedListVerticesPosition(verticesList));
 		}
-
+		base.Update ();
 	}
 
-	//TODO
+
 	void draw (Vector3[] vertices)
 	{
 		int closeLinkPoly = 0;
@@ -129,16 +103,32 @@ public class AnimationSinVectorMesh : VectorMesh {
 	//リストに要素を加える
 	void respawnVertices (LinkedList<AnimMesh> verticesList)
 	{
+		Vector3 RespawnPosition;
 		if ( maxParticle<verticesList.Count){return;}
 		float rad = Time.realtimeSinceStartup % (2*Mathf.PI);
-		Vector3 sinRespawnPosition = new Vector3(0,sinPos,0);
-		
-		verticesList.AddLast(new AnimMesh(){
-			deathFlag = false,
-			lifeTimes = startLifeTimes,
-			speed = 1,
-			direction = Vector3.right,
-			position = sinRespawnPosition});
+
+		switch (curve) {
+		case Curve.sin:
+			RespawnPosition = new Vector3(0,sc.sinPos,0);
+			verticesList.AddLast(new AnimMesh(){
+				deathFlag = false,
+				lifeTimes = startLifeTimes,
+				speed = 1,
+				direction = Vector3.right,
+				position = RespawnPosition});
+			break;
+		case Curve.cos:
+			RespawnPosition = new Vector3(sc.cosPos,0,0);
+			verticesList.AddLast(new AnimMesh(){
+				deathFlag = false,
+				lifeTimes = startLifeTimes,
+				speed = 1,
+				direction = Vector3.down,
+				position = RespawnPosition});
+			break;
+		default:
+				break;
+		}
 	}	
 	
 	//値に変更を加える
@@ -192,22 +182,4 @@ public class AnimationSinVectorMesh : VectorMesh {
 
 
 
-	void PerticleMethod (float sinPos,float cosPos)
-	{
-		Vector3 circlePos = new Vector3 (cosPos , sinPos , 0);
-		Vector3 sinMovePos = new Vector3 (0, sinPos , 0);
-		Vector3 cosMovePos = new Vector3 (cosPos , -5f, 0);
-
-		sinCosPSpoints [0].position = circlePos;
-		sinCosPSpoints [0].color = Color.white;
-		sinCosPSpoints [0].size = 1f;
-		sinCosPSpoints [1].position = sinMovePos;
-		sinCosPSpoints [1].color = Color.white;
-		sinCosPSpoints [1].size = 1f;
-		sinCosPSpoints [2].position = cosMovePos;
-		sinCosPSpoints [2].color = Color.white;
-		sinCosPSpoints [2].size = 1f;
-
-		sinCosPS.SetParticles (sinCosPSpoints, sinCosPSpoints.Length);
-	}
 }

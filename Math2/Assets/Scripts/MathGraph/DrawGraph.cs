@@ -14,6 +14,11 @@ public class DrawGraph : MonoBehaviour {
 	//このクラス自身が複数のゲームオブジェクトメッシュを管理している
 	public VectorMeshDictionary with = new VectorMeshDictionary();
 
+	void Awake ()
+	{
+		gameObject.name="DrawGraph";
+	}
+
 	public void AddLine (string name, Vector3 start, Vector3 end, Color color)
 	{
 		GameObject go = Instantiate(Resources.Load("VectorMesh")) as GameObject;
@@ -104,6 +109,7 @@ public class DrawGraph : MonoBehaviour {
 
 	public void AddVectorMeshObjcect(string name,VectorMesh obj)
 	{
+		obj.name = name;
 		obj.root = gameObject;
 		with.Add (name,obj);
 	}
