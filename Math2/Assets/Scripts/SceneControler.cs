@@ -18,9 +18,24 @@ public class SceneControler : MonoBehaviour {
 	ParticleSystem sinCosPS;
 	ParticleSystem.Particle[] sinCosPSpoints;
 
+	public GameObject drawGraphSin;
+	public GameObject drawGraphCos;
+
+
 	public void Awake ()
 	{
-		GameObject drawGraph = GameObject.Find("AnimationSinVectorMesh1") as GameObject;
+		drawGraphSin = GameObject.Find("AnimationSinVectorMesh1") as GameObject;
+		AnimationSinVectorMesh aSin = drawGraphSin.GetComponent<AnimationSinVectorMesh>() as AnimationSinVectorMesh;
+
+		drawGraphCos = GameObject.Find("AnimationSinVectorMesh2") as GameObject;
+		AnimationSinVectorMesh aCos = drawGraphSin.GetComponent<AnimationSinVectorMesh>() as AnimationSinVectorMesh;
+
+		aSin.curve = AnimationSinVectorMesh.Curve.sin;
+		aCos.curve = AnimationSinVectorMesh.Curve.cos;
+
+		drawGraphSin.transform.position = cosCurvePosition.transform.position;
+		drawGraphCos.transform.position = sinCurvePosition.transform.position;
+
 
 		sinCosPS = gameObject.AddComponent<ParticleSystem>() as ParticleSystem;
 		sinCosPS.Stop();
