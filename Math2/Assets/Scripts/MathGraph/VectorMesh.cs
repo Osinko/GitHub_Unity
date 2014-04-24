@@ -47,7 +47,6 @@ public class VectorMesh : MonoBehaviour {
 		mr = gameObject.AddComponent<MeshRenderer>();
 		mesh = mf.mesh;
 		mesh.Clear();
-		root = gameObject;
 		
 		visible = true;
 		color = Color.white;
@@ -154,20 +153,38 @@ public class VectorMesh : MonoBehaviour {
 		return ret;
 	}
 
-	//辞書クラスから適時呼び出される 
-	public virtual void OnInsertComplete(){
-		
-		//呼び出し元のDrawGraphオブジェクトの子にする 
-		transform.parent = root.transform;
-		
+	//メッシュのトポロジーをMeshTopology.Trianglesから2点一組のMeshTopology.Linesに変換する
+	public int[] MakeIndices(int[] triangles)
+	{
+		int[] indices = new int[2 * triangles.Length];
+		int i = 0;
+		for( int t = 0; t < triangles.Length; t+=3 )
+		{
+			indices[i++] = triangles[t];        //start
+			indices[i++] = triangles[t + 1];   //end
+			indices[i++] = triangles[t + 1];   //start
+			indices[i++] = triangles[t + 2];   //end
+			indices[i++] = triangles[t + 2];   //start
+			indices[i++] = triangles[t];        //end
+		}
+		return indices;
+	}
+
+	public void RefreshMesh ()
+	{
+		mesh.Clear();
 		CullModeChange ();
-		
-		mesh.vertices = RotationVertices(vertices);
+		mesh.vertices = RotationVertices (vertices);
 		mesh.uv = uvs;
-		
 		ColorModeChange ();
-		
-		mesh.SetIndices(lines,MeshTopology.Lines,0);
+		mesh.SetIndices (lines, MeshTopology.Lines, 0);
+	}
+
+	//辞書クラスから適時呼び出される 
+	public virtual void OnInsertComplete()
+	{
+		transform.parent = root.transform;		//呼び出し元のDrawGraphオブジェクトの子にする 
+		//RefreshMesh ();
 	}
 
 	//辞書クラスから適時呼び出される 

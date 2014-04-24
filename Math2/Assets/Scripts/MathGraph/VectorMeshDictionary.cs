@@ -12,7 +12,7 @@ public class VectorMeshDictionary : DictionaryBase {
 		get{return (VectorMesh) Dictionary[key];}
 		set{Dictionary[key] = value;}
 	}
-	
+
 	public ICollection Keys{
 		get {
 			return Dictionary.Keys;
