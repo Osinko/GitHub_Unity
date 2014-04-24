@@ -154,7 +154,7 @@ public class VectorMesh : MonoBehaviour {
 	}
 
 	//メッシュのトポロジーをMeshTopology.Trianglesから2点一組のMeshTopology.Linesに変換する
-	public int[] MakeIndices(int[] triangles)
+	public static int[] MakeIndices(int[] triangles)
 	{
 		int[] indices = new int[2 * triangles.Length];
 		int i = 0;
@@ -168,6 +168,42 @@ public class VectorMesh : MonoBehaviour {
 			indices[i++] = triangles[t];        //end
 		}
 		return indices;
+	}
+
+	public static void MakeTopologyConvertMesh (Vector3[] vertices, int[] lines)
+	{
+		for (int v = 1, t = 1; v < vertices.Length; v++, t += 3) {
+			//0,1,2, 0,2,3 0,3,4 0,4,5 のようなインデックスが出来る
+			lines [t] = v;
+			lines [t + 1] = v + 1;
+		}
+		lines [lines.Length - 1] = 1;
+	}
+	
+	public static void MakeTopologyCloseMesh (int[] lines)
+	{
+		//連続する線のトポロジを作成
+		for (int i = 0, j = 0; i < lines.Length; i += 2, j++) {
+			lines [i] = j;
+			lines [i + 1] = j + 1;
+		}
+		lines [lines.Length - 1] = 0;
+	}
+
+	public static void MakeTopologyOpenMesh (Vector3[] vertices,int[] lines)
+	{
+		//連続する線のトポロジを作成
+		for (int i = 0, j = 0; i < vertices.Length; i += 2, j++) {
+			lines [i] = j;
+			lines [i + 1] = j + 1;
+		}
+	}
+
+	public void MakeVertices2uvs(){
+		this.uvs = new Vector2[this.vertices.Length];
+		for (int i = 0; i < this.vertices.Length; i++) {
+			this.uvs[i] = Vector2.zero;
+		}
 	}
 
 	public void RefreshMesh ()

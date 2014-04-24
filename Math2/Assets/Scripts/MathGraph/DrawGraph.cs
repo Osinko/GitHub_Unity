@@ -143,10 +143,15 @@ public class DrawGraph : MonoBehaviour {
 		int i=0;
 		foreach (DictionaryEntry item in with) {
 			KeyList[i] = (string)item.Key;
-			i++;
+			valueList[i] = item.Value.ToString();
+				i++;
 		}
 
 		foreach (var item in KeyList) {
+			print(item);
+		}
+
+		foreach (var item in valueList) {
 			print(item);
 		}
 	}

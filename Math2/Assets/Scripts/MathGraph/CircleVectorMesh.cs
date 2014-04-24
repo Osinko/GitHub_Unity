@@ -70,12 +70,8 @@ public class CircleVectorMesh : VectorMesh {
 				vertices [v] = Quaternion.Euler (0, 0, angle * (v - 1)) * point;
 				uvs [v] = Vector2.zero;
 			}
-			//連続する線のトポロジを作成
-			for (int i = 0, j = 0; i < lines.Length; i += 2, j++) {
-				lines [i] = j;
-				lines [i + 1] = j + 1;
-			}
-			lines [lines.Length - 1] = 0;
+
+			MakeTopologyCloseMesh (lines);
 
 			this.vertices = vertices;
 			this.lines = lines;
@@ -87,14 +83,13 @@ public class CircleVectorMesh : VectorMesh {
 			int[] lines = new int[numberOfPoints * 3];
 
 			float angle = -360.0f / numberOfPoints;
+
 			for (int v = 1, t = 1; v < vertices.Length; v++, t += 3) {
 				vertices [v] = Quaternion.Euler (0, 0, angle * (v - 1)) * point;
-				lines [t] = v;
-				//0,1,2, 0,2,3 0,3,4 0,4,5 のようなインデックスが出来る
-				lines [t + 1] = v + 1;
 				uvs [v] = Vector2.zero;
 			}
-			lines [lines.Length - 1] = 1;
+
+			MakeTopologyConvertMesh (vertices,lines);
 
 			this.vertices = vertices;
 			this.lines = MakeIndices (lines);
@@ -104,4 +99,6 @@ public class CircleVectorMesh : VectorMesh {
 		RefreshMesh();
 		
 	}
+
+
 }
