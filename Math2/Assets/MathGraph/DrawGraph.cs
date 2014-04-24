@@ -128,8 +128,9 @@ public class DrawGraph : MonoBehaviour {
 	{
 		GameObject go = Instantiate(Resources.Load("GridVectorMesh")) as GameObject;
 		GridVectorMesh vectorMesh = go.GetComponent<GridVectorMesh>();
+		vectorMesh.root = gameObject;
 		
-		vectorMesh.CreateGridVectorMesh(column , row , color, girdSizeX ,girdSizeY);
+		vectorMesh.CreateGridVectorMesh(name, column , row , color, girdSizeX ,girdSizeY);
 		with.Add(name,vectorMesh);
 		return vectorMesh;
 	}

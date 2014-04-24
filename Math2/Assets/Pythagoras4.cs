@@ -31,9 +31,11 @@ public class Pythagoras4 : MonoBehaviour {
 		dg.AddLine("Line5",new Vector3( 0.0f , 5.0f , 0.0f ),new Vector3( 0.0f , -20.0f , 0.0f ),Color.cyan);
 		dg.AddLine("Line6",new Vector3( 3.0f , 5.0f , 0.0f ),new Vector3( 3.0f , -20.0f , 0.0f ),Color.cyan);
 
-		//TODO
-		GridVectorMesh gvm = dg.AddGrid("Grid1",2,2,new Color(100,100,100,0.2f),2f,1);
-		//gvm.transform.position = new Vector3(8,0,0);		//普通にゲームオブジェクトとして扱えます
+		GridVectorMesh gvm = dg.AddGrid("Grid1",14*2,6*2,new Color(100,100,100,0.2f),0.5f,0.5f);
+		gvm.transform.position = new Vector3(12,0,0);		//普通にゲームオブジェクトとして扱えます
+
+		GridVectorMesh gvm2 = dg.AddGrid("Grid2",6*2,14*2,new Color(100,100,100,0.2f),0.5f,0.5f);
+		gvm2.transform.position = new Vector3(0,-12,0);		//普通にゲームオブジェクトとして扱えます
 	}
 
 	void Update ()

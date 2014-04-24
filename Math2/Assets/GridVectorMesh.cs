@@ -22,22 +22,32 @@ public class GridVectorMesh : VectorMesh {
 		girdSizeX=1.0f;
 		girdSizeY=1.0f;
 
+		columnPrev = column;
+		rowPrev = row;
+		girdSizeXPrev = girdSizeX;
+		girdSizeYPrev = girdSizeY;
+
 		base.Awake ();
 	}
 
 	public override void Update ()
 	{
-
+		if(column!=columnPrev || row!=rowPrev || girdSizeX!=girdSizeXPrev || girdSizeY!=girdSizeYPrev){
+			ReGridVectorMesh();
+		}
 		base.Update ();
 	}
 
-	public void CreateGridVectorMesh(int column,int row,Color color,float girdSizeX = 1,float girdSizeY = 1){
-
+	public void CreateGridVectorMesh(string name, int column,int row,Color color,float girdSizeX = 1,float girdSizeY = 1){
+		gameObject.name = name;
 		this.column = column;
 		this.row = row;
 		this.girdSizeX = girdSizeX;
 		this.girdSizeY = girdSizeY;
 		this.color = color;
+
+		//呼び出し元のDrawGraphオブジェクトの子にする 
+		transform.parent = root.transform;
 
 		ReGridVectorMesh();
 	}
@@ -66,17 +76,6 @@ public class GridVectorMesh : VectorMesh {
 			vertices [(column*2)+2 + y] = new Vector3 (startPosition.x, endPosition.y - (diffy * (float)y), 0);
 			vertices [(column*2)+2 + y+1] = new Vector3 (endPosition.x, endPosition.y - (diffy * (float)y), 0);
 		}
-
-
-//		float diffx = girdSizeX/4;
-//		float diffy = girdSizeY/4;
-//		for (int i = 0; i < (vertices.Length/2); i += 4) {
-//			vertices [i] = new Vector3 (startPosition.x + (diffx * (float)i), startPosition.y, 0);
-//			vertices [i + 1] = new Vector3 (startPosition.x + (diffx * (float)i), endPosition.y, 0);
-//			vertices [i + 2] = new Vector3 (startPosition.x, endPosition.y - (diffy * (float)i), 0);
-//			vertices [i + 3] = new Vector3 (endPosition.x, endPosition.y - (diffy * (float)i), 0);
-//		}
-
 		
 		for (int i = 0; i < resolution; i++) {
 			lines [i] = i;
@@ -85,6 +84,8 @@ public class GridVectorMesh : VectorMesh {
 		vertices = vertices;
 		uvs = uvs;
 		lines = lines;
+
+		RefreshMesh();
 	}
 
 }

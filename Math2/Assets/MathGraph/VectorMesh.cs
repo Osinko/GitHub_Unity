@@ -154,21 +154,21 @@ public class VectorMesh : MonoBehaviour {
 		return ret;
 	}
 
-	//辞書クラスから適時呼び出される 
-	public virtual void OnInsertComplete(){
-		
-		//呼び出し元のDrawGraphオブジェクトの子にする 
-		transform.parent = root.transform;
-		
+	public void RefreshMesh ()
+	{
+		mesh.Clear();
 		CullModeChange ();
-		
-		mesh.vertices = RotationVertices(vertices);
+		mesh.vertices = RotationVertices (vertices);
 		mesh.uv = uvs;
-		
 		ColorModeChange ();
-		
-		mesh.SetIndices(lines,MeshTopology.Lines,0);
+		mesh.SetIndices (lines, MeshTopology.Lines, 0);
 	}
+
+//	//辞書クラスから適時呼び出される 
+//	public virtual void OnInsertComplete()
+//	{
+//		RefreshMesh ();
+//	}
 
 	//辞書クラスから適時呼び出される 
 	public virtual void OnRemoveComplete ()
