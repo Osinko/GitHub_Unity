@@ -18,13 +18,18 @@ public class DrawGraph : MonoBehaviour {
 	{
 		GameObject go = Instantiate(Resources.Load("VectorMesh")) as GameObject;
 		VectorMesh vectorMesh = go.GetComponent<VectorMesh>();
-
 		vectorMesh.root = gameObject;
+
+		//テンプレ部分
+		vectorMesh.gameObject.name = name;	//オブジェクトネーム更新
+		vectorMesh.color = color;		//継承元のカラーへ代入
+
 		vectorMesh.vertices = new Vector3[]{start,end,};
 		vectorMesh.uvs = new Vector2[]{Vector2.zero,Vector2.zero,};
 		vectorMesh.lines = new int[]{0,1,};
 		vectorMesh.color = color;
-		
+
+		vectorMesh.RefreshMesh();
 		with.Add(name,vectorMesh);
 	}
 
@@ -32,13 +37,18 @@ public class DrawGraph : MonoBehaviour {
 	public void AddTriangle(string name,Vector3 a, Vector3 b, Vector3 c , Color color){
 		GameObject go = Instantiate(Resources.Load("VectorMesh")) as GameObject;
 		VectorMesh vectorMesh = go.GetComponent<VectorMesh>();
-		
 		vectorMesh.root = gameObject;
+
+		//テンプレ部分
+		vectorMesh.gameObject.name = name;	//オブジェクトネーム更新
+		vectorMesh.color = color;		//継承元のカラーへ代入
+
 		vectorMesh.vertices = new Vector3[]{a,b,c,};
 		vectorMesh.uvs = new Vector2[]{Vector2.zero,Vector2.zero,Vector2.zero,};
 		vectorMesh.lines = new int[]{0,1,1,2,2,0,};
 		vectorMesh.color = color;
-		
+
+		vectorMesh.RefreshMesh();
 		with.Add(name,vectorMesh);
 	}
 
@@ -47,8 +57,12 @@ public class DrawGraph : MonoBehaviour {
 	{
 		GameObject go = Instantiate(Resources.Load("VectorMesh")) as GameObject;
 		VectorMesh vectorMesh = go.GetComponent<VectorMesh>();
-		
 		vectorMesh.root = gameObject;
+
+		//テンプレ部分
+		vectorMesh.gameObject.name = name;	//オブジェクトネーム更新
+		vectorMesh.color = color;		//継承元のカラーへ代入
+
 		vectorMesh.vertices = new Vector3[]{
 			new Vector3(rect.xMin,rect.yMin,0),
 			new Vector3(rect.xMax,rect.yMin,0),
@@ -60,67 +74,20 @@ public class DrawGraph : MonoBehaviour {
 		vectorMesh.lines = new int[]{0,1,1,2,2,3,3,0,};
 		vectorMesh.color = color;
 		
+		vectorMesh.RefreshMesh();
 		with.Add(name,vectorMesh);
 	}
 
 
-	public void AddCircle (string name, Vector3 position, float radius, int numberOfPoints, Color color,bool vectorCircleOn = true)
+	public CircleVectorMesh AddCircle (string name, Vector3 position, float radius, int numberOfPoints, Color color,bool vectorCircleOn = true)
 	{
-		GameObject go = Instantiate(Resources.Load("VectorMesh")) as GameObject;
-		VectorMesh vectorMesh = go.GetComponent<VectorMesh>();
-		
+		GameObject go = Instantiate(Resources.Load("CircleVectorMesh")) as GameObject;
+		CircleVectorMesh vectorMesh = go.GetComponent<CircleVectorMesh>();
 		vectorMesh.root = gameObject;
 
-		Vector3[] vertices;
-		Vector2[] uvs;
-		int[] lines;
-
-		Vector3 point = Vector3.up*radius;
-		if(vectorCircleOn){
-
-			float angle = -360.0f / numberOfPoints;
-			vertices = new Vector3[numberOfPoints];
-			uvs = new Vector2[numberOfPoints];
-			lines = new int[numberOfPoints*2];
-			for (int v = 0; v < vertices.Length; v++) {
-				vertices[v]= Quaternion.Euler(0,0,angle*(v-1))*point;
-				uvs[v]=Vector2.zero;
-			}
-
-			//連続する線のトポロジを作成
-			for (int i = 0, j = 0 ; i < lines.Length; i+=2,j++) {
-				lines[i]=j;
-				lines[i+1]=j+1;
-			}
-			lines[lines.Length-1]=0;
-
-			vectorMesh.vertices = vertices;
-			vectorMesh.lines = lines;
-			vectorMesh.uvs = uvs;
-
-		}else{
-
-			vertices = new Vector3[numberOfPoints+1];
-			uvs = new Vector2[numberOfPoints+1];
-			lines = new int[numberOfPoints*3];
-
-			float angle = -360.0f / numberOfPoints;
-			for (int v = 1,t = 1 ; v < vertices.Length; v++,t+=3 ) {
-				vertices[v]= Quaternion.Euler(0,0,angle*(v-1))*point;
-				
-				lines[t] = v;        //0,1,2, 0,2,3 0,3,4 0,4,5 のようなインデックスが出来る
-				lines[t+1]= v+1;
-				
-				uvs[v]=Vector2.zero;
-			}
-			lines[lines.Length-1]=1;
-			vectorMesh.vertices = vertices;
-			vectorMesh.lines = MakeIndices(lines);
-			vectorMesh.uvs = uvs;
-
-		}
-
+		vectorMesh.CreateCircleVectorMesh(name,position,radius,numberOfPoints,color,vectorCircleOn);
 		with.Add(name,vectorMesh);
+		return vectorMesh;
 
 	}
 
@@ -135,27 +102,16 @@ public class DrawGraph : MonoBehaviour {
 		return vectorMesh;
 	}
 
-
-	//メッシュのトポロジーをMeshTopology.Trianglesから2点一組のMeshTopology.Linesに変換する
-	public int[] MakeIndices(int[] triangles)
+	public void AddVectorMeshObjcect(string name,VectorMesh obj)
 	{
-		int[] indices = new int[2 * triangles.Length];
-		int i = 0;
-		for( int t = 0; t < triangles.Length; t+=3 )
-		{
-			indices[i++] = triangles[t];        //start
-			indices[i++] = triangles[t + 1];   //end
-			indices[i++] = triangles[t + 1];   //start
-			indices[i++] = triangles[t + 2];   //end
-			indices[i++] = triangles[t + 2];   //start
-			indices[i++] = triangles[t];        //end
-		}
-		return indices;
+		obj.root = gameObject;
+		with.Add (name,obj);
 	}
 
+	//以下辞書操作用関数---------------------------------------------------
 
-	public VectorMesh Set(string name)
-	{
+	
+	public VectorMesh Set(string name){
 		return with[name];
 	}
 
@@ -179,18 +135,21 @@ public class DrawGraph : MonoBehaviour {
 		}
 	}
 
+	public void DebugPrint(){
+		string[] KeyList = new string[with.Count];
+		string[] valueList = new string[with.Count];
+		
+		//DictionaryBase内の辞書データーの名前やキーを取り出す際はDictionaryEntryクラスを利用する
+		int i=0;
+		foreach (DictionaryEntry item in with) {
+			KeyList[i] = (string)item.Key;
+			i++;
+		}
 
-	//	public void AddDrawGraph (string graph, object animMesh, Color white, object xy)
-	//	{
-	//		VectorMesh vectorMesh = new VectorMesh();
-	//		
-	//		vectorMesh.vertices = new Vector3[]{start,end,};
-	//		vectorMesh.uvs = new vector2[]{Vector2.zero,Vector2.zero,};
-	//		vectorMesh.lines = new int[]{0,1,1,2,};
-	//		vectorMesh.color = color;
-	//		
-	//		with.Add(name,vectorMesh);
-	//	}
-	
+		foreach (var item in KeyList) {
+			print(item);
+		}
 	}
+
+}
 

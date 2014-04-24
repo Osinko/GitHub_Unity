@@ -12,7 +12,7 @@ public class VectorMeshDictionary : DictionaryBase {
 		get{return (VectorMesh) Dictionary[key];}
 		set{Dictionary[key] = value;}
 	}
-	
+
 	public ICollection Keys{
 		get {
 			return Dictionary.Keys;
@@ -43,7 +43,7 @@ public class VectorMeshDictionary : DictionaryBase {
 	protected override void OnInsertComplete (object key, object value)
 	{
 		VectorMesh vm = (VectorMesh) value;
-//		vm.OnInsertComplete();	//VectorMeshクラスの関数を呼び出す
+		vm.OnInsertComplete();	//VectorMeshクラスの関数を呼び出す
 		base.OnInsertComplete (key, value);
 	}
 
