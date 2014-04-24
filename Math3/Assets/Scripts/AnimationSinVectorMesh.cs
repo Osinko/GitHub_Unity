@@ -105,7 +105,6 @@ public class AnimationSinVectorMesh : VectorMesh {
 	{
 		Vector3 RespawnPosition;
 		if ( maxParticle<verticesList.Count){return;}
-		float rad = Time.realtimeSinceStartup % (2*Mathf.PI);
 
 		switch (curve) {
 		case Curve.sin:

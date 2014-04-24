@@ -36,7 +36,7 @@ public class Math2 : MonoBehaviour {
 		GameObject go3 = Instantiate(Resources.Load("AnimationSinVectorMesh")) as GameObject;
 		dg.AddVectorMeshObjcect("AnimationSinVectorMesh2" , go3.GetComponent<VectorMesh>() );
 
-		dg.DebugPrint();
+		//dg.DebugPrint();
 
 	}
 	
