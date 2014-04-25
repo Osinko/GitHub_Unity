@@ -26,6 +26,8 @@ public class AnimationSinVectorMesh : VectorMesh {
 
 	public override void Awake ()
 	{
+		pointLink=false;
+
 		curve = Curve.sin;
 		GameObject controler = GameObject.Find("Level");
 		sc = controler.GetComponent<SceneControler>() as SceneControler;

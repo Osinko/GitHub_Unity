@@ -74,8 +74,6 @@ public class DrawGraph : MonoBehaviour {
 
 	public GameObject AddVectorMeshObjcect(string name,GameObject go)
 	{
-		VectorMesh vectorMesh = go.GetComponent<VectorMesh>();
-
 		go.name=name;
 		with.Add(name,go);
 		return go;
