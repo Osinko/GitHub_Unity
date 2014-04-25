@@ -1,10 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\Math3\Assets\Scripts\Math2.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\Math3\Assets\Scripts\AnimationSinVectorMesh.cs">
     <Files>
-      <File FileName="..\Math3\Assets\Scripts\AnimationSinVectorMesh.cs" Line="108" Column="1" />
-      <File FileName="..\Math3\Assets\Scripts\SceneControler.cs" Line="1" Column="1" />
-      <File FileName="..\Math3\Assets\Scripts\Math2.cs" Line="39" Column="5" />
+      <File FileName="..\Math3\Assets\Scripts\AnimationSinVectorMesh.cs" Line="96" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class CircleVectorMesh : VectorMesh {
@@ -34,13 +34,13 @@ public class CircleVectorMesh : VectorMesh {
 		if(vectorCircleOn!=vectorCircleOnPrev || position!=positionPrev || radius!=radiusPrev || numberOfPoints!=numberOfPointsPrev){
 			if(radius < 0.00000001f){radius=0.00000001f;}
 			if(numberOfPoints < 3){numberOfPoints = 3;}
-			ReCircleVectorMesh();
+			Refresh();
 		}
 
 		base.Update ();
 	}
 
-	public void CreateCircleVectorMesh(string name, Vector3 position, float radius, int numberOfPoints, Color color, bool vectorCircleOn)
+	public void SetUpMesh(string name, Vector3 position, float radius, int numberOfPoints, Color color, bool vectorCircleOn)
 	{
 		this.vectorCircleOn = vectorCircleOn;
 		this.position = position;
@@ -50,13 +50,13 @@ public class CircleVectorMesh : VectorMesh {
 		//テンプレ部分
 		gameObject.name = name;	//オブジェクトネーム更新
 		this.color = color;		//継承元のカラーへ代入
-		transform.parent = root.transform;		//呼び出し元のDrawGraphオブジェクトの子にする 
+		transform.parent = controler.transform;		//呼び出し元のDrawGraphオブジェクトの子にする 
 
-		ReCircleVectorMesh ();
+		Refresh ();
 	}
 
 	//メッシュ構造の再構築
-	void ReCircleVectorMesh ()
+	void Refresh ()
 	{
 
 		Vector3 point = Vector3.up * radius;
@@ -99,6 +99,5 @@ public class CircleVectorMesh : VectorMesh {
 		RefreshMesh();
 		
 	}
-
 
 }

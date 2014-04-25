@@ -1,18 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System;
 
-/// <summary>
-/// ベクターメッシュを管理するためのカスタム化された専用辞書クラス
-/// 適切なタイミングでVectorMeshクラスのOn～機能などを呼んでいる点に特徴がある
-/// </summary>
-public class VectorMeshDictionary : DictionaryBase {
-	
+public class PersonDictionary : DictionaryBase {
+
 	//ここでDictionaryを使えるようにしている
-	public VectorMesh this[ string key ]{
-		get{return (VectorMesh) Dictionary[key];}
+	public Person this[ string key ]{
+		get{return (Person) Dictionary[key];}
 		set{Dictionary[key] = value;}
 	}
-
+	
 	public ICollection Keys{
 		get {
 			return Dictionary.Keys;
@@ -25,7 +23,7 @@ public class VectorMeshDictionary : DictionaryBase {
 		}
 	}
 	
-	public void Add(string key,VectorMesh value){
+	public void Add(string key,Person value){
 		if(Dictionary.Contains(key)){
 			Dictionary.Remove(key);
 		}
@@ -39,19 +37,20 @@ public class VectorMeshDictionary : DictionaryBase {
 	public void Remove(string key ){
 		Dictionary.Remove(key);
 	}
-	
+
 	protected override void OnInsertComplete (object key, object value)
 	{
-		VectorMesh vm = (VectorMesh) value;
-		vm.OnInsertComplete();	//VectorMeshクラスの関数を呼び出す
+		Person vm = (Person) value;
+		vm.OnInsertComplete();    //VectorMeshクラスの関数を呼び出す
 		base.OnInsertComplete (key, value);
 	}
-
+	
 	protected override void OnRemoveComplete (object key, object value)
 	{
-		VectorMesh vm = (VectorMesh) value;
-		vm.OnRemoveComplete();	//VectorMeshクラスの関数を呼び出す
+		Person vm = (Person) value;
+		vm.OnRemoveComplete();    //VectorMeshクラスの関数を呼び出す
 		base.OnRemoveComplete (key, value);
 	}
+
 
 }

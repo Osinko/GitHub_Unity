@@ -21,7 +21,7 @@ public class VectorMesh : MonoBehaviour {
 		yz,
 	};
 
-	public GameObject	root;
+	public DrawGraph	controler;
 	public Vector3[]	vertices;
 	public Vector2[]	uvs;
 	public Color[] 		colorPoint;
@@ -60,6 +60,10 @@ public class VectorMesh : MonoBehaviour {
 		cullBackPrev = cullBack;
 		facePrev = face;
 
+		//シーン内からDrawGraphオブジェクトを自動的に探して発見すれば登録する
+		//複数あれば最初に見つけた方に集中する
+		controler = FindObjectOfType<DrawGraph>();
+		if(!controler){print("not find DrawGraph Obj");}
 	}
 
 
@@ -206,6 +210,9 @@ public class VectorMesh : MonoBehaviour {
 		}
 	}
 
+	//値の更新後、メッシュのデータを書き換える際に必ず呼ぶ関数
+	//1.値の更新
+	//2.この関数を呼ぶ
 	public void RefreshMesh ()
 	{
 		mesh.Clear();
@@ -219,8 +226,8 @@ public class VectorMesh : MonoBehaviour {
 	//辞書クラスから適時呼び出される 
 	public virtual void OnInsertComplete()
 	{
-		transform.parent = root.transform;		//呼び出し元のDrawGraphオブジェクトの子にする 
-		//RefreshMesh ();
+		if(!controler){print("not find DrawGraph Obj");}
+		transform.parent = controler.transform;		//DrawGraphオブジェクトの子にする 
 	}
 
 	//辞書クラスから適時呼び出される 

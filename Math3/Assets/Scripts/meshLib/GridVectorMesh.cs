@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class GridVectorMesh : VectorMesh {
@@ -38,12 +38,12 @@ public class GridVectorMesh : VectorMesh {
 			if(row < 1){row = 1;}
 			if(girdSizeX < 0.00000001f){girdSizeX=0.00000001f;}
 			if(girdSizeY < 0.00000001f){girdSizeY=0.00000001f;}
-			ReGridVectorMesh();
+			Refresh();
 		}
 		base.Update ();
 	}
 
-	public void CreateGridVectorMesh(string name, int column,int row,Color color,float girdSizeX = 1,float girdSizeY = 1){
+	public void SetUpMesh(string name, int column,int row,Color color,float girdSizeX = 1,float girdSizeY = 1){
 		this.column = column;
 		this.row = row;
 		this.girdSizeX = girdSizeX;
@@ -52,13 +52,13 @@ public class GridVectorMesh : VectorMesh {
 		//テンプレ部分
 		gameObject.name = name;	//オブジェクトネーム更新
 		this.color = color;		//継承元のカラーへ代入
-		transform.parent = root.transform;		//呼び出し元のDrawGraphオブジェクトの子にする 
+		transform.parent = controler.transform;		//呼び出し元のDrawGraphオブジェクトの子にする 
 
-		ReGridVectorMesh();
+		Refresh();
 	}
 
 	//メッシュ構造の再構築
-	public void ReGridVectorMesh(){
+	public void Refresh(){
 
 		float totalX = (float)column * girdSizeX/2;
 		float totalY = (float)row * girdSizeY/2;

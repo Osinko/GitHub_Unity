@@ -1,6 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\base\DrawGraph.cs">
+    <Files>
+      <File FileName="Assets\Scripts\base\DrawGraph.cs" Line="74" Column="1" />
+      <File FileName="Assets\Scripts\meshLib\LineVectorMesh.cs" Line="5" Column="2" />
+      <File FileName="Assets\Scripts\meshLib\VectorMeshObjcect.cs" Line="23" Column="3" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
