@@ -15,7 +15,7 @@ public class AnimationSinVectorMesh : VectorMesh {
 	};
 
 	//カーブ制御
-	public float 	emissionRate = 		24.0f;		//１秒間に24回産む
+	public float 	emissionRate = 		30.0f;		//１秒間に30回産む
 	public float 	startLifeTimes =	6.28f*2.0f;
 	public int	 	maxParticle = 		1000;
 	public Curve	curve;  
@@ -26,7 +26,7 @@ public class AnimationSinVectorMesh : VectorMesh {
 
 	public override void Awake ()
 	{
-		pointLink=false;
+		pointLink=true;
 
 		curve = Curve.sin;
 		GameObject controler = GameObject.Find("Level");

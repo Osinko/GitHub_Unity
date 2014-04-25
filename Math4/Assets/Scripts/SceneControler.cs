@@ -3,7 +3,9 @@ using System.Collections;
 
 public class SceneControler : MonoBehaviour {
 
+	[Range(0.2f,5.0f)]
 	public float Amplitude=3;	//振幅
+	[Range(0.3f,10.0f)]
 	public float speed=5;		//周期速度
 	public float sinPos;
 	public float cosPos;
@@ -21,6 +23,7 @@ public class SceneControler : MonoBehaviour {
 	public GameObject drawGraphSin;
 	public GameObject drawGraphCos;
 
+	public Material pirticleMat;
 
 	public void Awake ()
 	{
@@ -37,10 +40,27 @@ public class SceneControler : MonoBehaviour {
 		drawGraphCos.transform.position = sinCurvePosition.transform.position;
 
 
-		sinCosPS = gameObject.AddComponent<ParticleSystem>() as ParticleSystem;
+		sinCosPS = gameObject.GetComponent<ParticleSystem>() as ParticleSystem;
 		sinCosPS.Stop();
 		sinCosPSpoints = new ParticleSystem.Particle[3];
 
+		AwakeGetSceneTextMesh();
+
+	}
+
+	TextMesh text_amplitude;
+	TextMesh text_speed;
+	TextMesh text_theta;
+	TextMesh text_sin;
+	TextMesh text_cos;
+
+	void AwakeGetSceneTextMesh ()
+	{
+		text_amplitude = GameObject.Find("text_amplitude").GetComponent<TextMesh>();
+		text_speed = GameObject.Find("text_speed").GetComponent<TextMesh>();
+		text_theta = GameObject.Find("text_theta").GetComponent<TextMesh>();
+		text_sin = GameObject.Find("text_sin").GetComponent<TextMesh>();
+		text_cos = GameObject.Find("text_cos").GetComponent<TextMesh>();
 	}
 
 	void Start ()
@@ -53,10 +73,14 @@ public class SceneControler : MonoBehaviour {
 		diffTheta = Mathf.PI * 2 /speed;
 		theta += diffTheta * Time.deltaTime;
 		theta %= Mathf.PI * 2;
-		
+
 		sinPos = Amplitude * Mathf.Sin(theta);
 		cosPos = Amplitude * Mathf.Cos(theta);
-		
+
+		text_theta.text= string.Format("θ= {0,4}°",(int)(Mathf.Rad2Deg * theta));
+		text_amplitude.text= string.Format("振幅= {0,9}",Amplitude);
+		text_speed.text= string.Format("周期= {0,9}/1毎秒",speed);
+
 		PerticleUpdate (sinPos,cosPos);
 	}
 
@@ -79,6 +103,7 @@ public class SceneControler : MonoBehaviour {
 		sinCosPSpoints [0].position = circlePos;
 		sinCosPSpoints [1].position = sinMovePos;
 		sinCosPSpoints [2].position = cosMovePos;
+		
 		sinCosPS.SetParticles (sinCosPSpoints, sinCosPSpoints.Length);
 	}
 }
