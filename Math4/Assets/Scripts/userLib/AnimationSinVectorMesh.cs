@@ -20,7 +20,8 @@ public class AnimationSinVectorMesh : VectorMesh {
 	public int	 	maxParticle = 		1000;
 	public Curve	curve;  
 	
-	bool pointLink;
+	public bool pointLink;
+
 	bool closeLink;
 	float emissionTimer;
 

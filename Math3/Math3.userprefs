@@ -2,7 +2,9 @@
   <MonoDevelop.Ide.Workspace />
   <MonoDevelop.Ide.Workbench ActiveDocument="..\Math4\Assets\Scripts\SceneControler.cs">
     <Files>
-      <File FileName="..\Math4\Assets\Scripts\SceneControler.cs" Line="46" Column="1" />
+      <File FileName="..\Math4\Assets\Scripts\SceneControler.cs" Line="97" Column="28" />
+      <File FileName="..\Math4\Assets\Scripts\SceneControler2.cs" Line="43" Column="2" />
+      <File FileName="..\Math4\Assets\Scripts\userLib\AnimationSinVectorMesh.cs" Line="6" Column="36" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
