@@ -62,23 +62,24 @@ public class DrawGraph : MonoBehaviour {
 		return go;
 	}
 
-//	public GameObject AddGrid(string name , int column , int row , Color color, float girdSizeX = 1,float girdSizeY = 1)
-//	{
-//		GameObject go = Instantiate(Resources.Load("GridVectorMesh")) as GameObject;
-//		GridVectorMesh vectorMesh = go.GetComponent<GridVectorMesh>();
-//		
-//		vectorMesh.SetUpMesh(name, column , row , color, girdSizeX ,girdSizeY);
-//		with.Add(name,go);
-//		return go;
-//	}
-//
-//	public GameObject AddVectorMeshObjcect(string name,GameObject go)
-//	{
-//		VectorMesh vectorMesh = go.GetComponent<VectorMesh>();
-//		
-//		with.Add(name,go);
-//		return go;
-//	}
+	public GameObject AddGrid(string name , int column , int row , Color color, float girdSizeX = 1,float girdSizeY = 1)
+	{
+		GameObject go = Instantiate(Resources.Load("GridVectorMesh")) as GameObject;
+		GridVectorMesh vectorMesh = go.GetComponent<GridVectorMesh>();
+		
+		vectorMesh.SetUpMesh(name, column , row , color, girdSizeX ,girdSizeY);
+		with.Add(name,go);
+		return go;
+	}
+
+	public GameObject AddVectorMeshObjcect(string name,GameObject go)
+	{
+		VectorMesh vectorMesh = go.GetComponent<VectorMesh>();
+
+		go.name=name;
+		with.Add(name,go);
+		return go;
+	}
 
 }
 
