@@ -57,16 +57,16 @@ public class AnimationSinVectorMesh : VectorMesh {
 	}
 
 
-	void draw (Vector3[] vertices)
+	void draw (Vector3[] _vertices)
 	{
 		int closeLinkPoly = 0;
 		if(closeLink){closeLinkPoly = 1;}
 		
-		uvs = new Vector2[vertices.Length];
+		uvs = new Vector2[_vertices.Length];
 
 		if(pointLink){
 			//連続する線のトポロジを作成
-			lines = new int[(vertices.Length - 1 + closeLinkPoly)*2];
+			lines = new int[(_vertices.Length - 1 + closeLinkPoly)*2];
 			for (int i = 0, j = 0 ; i < (lines.Length - (closeLinkPoly*2)); i+=2,j++) {
 				lines[i]=j;
 				lines[i+1]=j+1;
@@ -77,7 +77,7 @@ public class AnimationSinVectorMesh : VectorMesh {
 				lines[lines.Length-1]=0;
 			}
 		}else{
-			lines = new int[vertices.Length + closeLinkPoly*2];
+			lines = new int[_vertices.Length + closeLinkPoly*2];
 			for (int i = 0; i < (lines.Length - closeLinkPoly*2); i++) {
 				lines[i]=i;
 			}
@@ -88,11 +88,11 @@ public class AnimationSinVectorMesh : VectorMesh {
 			}
 		}
 		
-		for (int i = 0; i < vertices.Length; i++) {
+		for (int i = 0; i < _vertices.Length; i++) {
 			uvs[i]=Vector2.zero;
 		}
 
-		this.vertices = vertices;
+		this.vertices = _vertices;
 		this.uvs = uvs;
 		this.lines = lines;
 		

@@ -12,11 +12,14 @@ using System.Collections.Generic;
 public class DrawGraph : MonoBehaviour {
 	
 	//このクラス自身が複数のゲームオブジェクトメッシュを管理している
-	public VectorMeshDictionary with = new VectorMeshDictionary();
+	VectorMeshDictionary with;
 
 	void Awake ()
 	{
-		gameObject.name="DrawGraph";
+		GameObject go = Instantiate(Resources.Load("VectorMeshDictionary")) as GameObject;
+		go.name="VectorMeshDictionary";
+		go.transform.parent = gameObject.transform;
+		with = go.GetComponent<VectorMeshDictionary>();
 	}
 
 	public GameObject AddLine (string name, Vector3 start, Vector3 end, Color color)
@@ -49,16 +52,16 @@ public class DrawGraph : MonoBehaviour {
 		return go;
 	}
 
-//	public GameObject AddCircle (string name, Vector3 position, float radius, int numberOfPoints, Color color,bool vectorCircleOn = true)
-//	{
-//		GameObject go = Instantiate(Resources.Load("CircleVectorMesh")) as GameObject;
-//		CircleVectorMesh vectorMesh = go.GetComponent<CircleVectorMesh>();
-//
-//		vectorMesh.SetUpMesh(name,position,radius,numberOfPoints,color,vectorCircleOn);
-//		with.Add(name,go);
-//		return go;
-//	}
-//
+	public GameObject AddCircle (string name, Vector3 position, float radius, int numberOfPoints, Color color,bool vectorCircleOn = true)
+	{
+		GameObject go = Instantiate(Resources.Load("CircleVectorMesh")) as GameObject;
+		CircleVectorMesh vectorMesh = go.GetComponent<CircleVectorMesh>();
+
+		vectorMesh.SetUpMesh(name,position,radius,numberOfPoints,color,vectorCircleOn);
+		with.Add(name,go);
+		return go;
+	}
+
 //	public GameObject AddGrid(string name , int column , int row , Color color, float girdSizeX = 1,float girdSizeY = 1)
 //	{
 //		GameObject go = Instantiate(Resources.Load("GridVectorMesh")) as GameObject;

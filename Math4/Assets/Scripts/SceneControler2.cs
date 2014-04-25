@@ -11,7 +11,7 @@ public class SceneControler2 : MonoBehaviour {
 		GameObject go = Instantiate(Resources.Load("DrawGraph")) as GameObject;
 		dg = go.GetComponent<DrawGraph>();
 		
-//		dg.AddCircle("circle1",Vector3.zero,3,32,Color.grey);
+		dg.AddCircle("circle1",Vector3.zero,3,32,Color.grey);
 		
 		dg.AddLine("Line1",new Vector3( -5.0f , 3.0f , 0.0f ),new Vector3( 20.0f , 3.0f , 0.0f ),Color.cyan);
 		dg.AddLine("Line2",new Vector3( -5.0f , 0.0f , 0.0f ),new Vector3( 20.0f , 0.0f , 0.0f ),Color.cyan);

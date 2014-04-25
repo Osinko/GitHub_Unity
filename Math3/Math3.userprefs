@@ -1,6 +1,16 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\Math4\Assets\Scripts\meshLib\BoxVectorMesh.cs">
+    <Files>
+      <File FileName="..\Math4\Assets\Scripts\meshLib\CircleVectorMesh.cs" Line="99" Column="5" />
+      <File FileName="..\Math4\Assets\Scripts\base\VectorMesh.cs" Line="220" Column="44" />
+      <File FileName="..\Math4\Assets\Scripts\meshLib\GridVectorMesh.cs" Line="78" Column="1" />
+      <File FileName="..\Math4\Assets\Scripts\SceneControler2.cs" Line="24" Column="5" />
+      <File FileName="..\Math4\Assets\Scripts\base\DrawGraph.cs" Line="52" Column="5" />
+      <File FileName="..\Math4\Assets\Scripts\base\VectorMeshDictionary.cs" Line="34" Column="11" />
+      <File FileName="..\Math4\Assets\Scripts\meshLib\BoxVectorMesh.cs" Line="8" Column="6" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
