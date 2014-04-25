@@ -31,7 +31,7 @@ public class VectorMeshDictionary : MonoBehaviour {
 	}
 
 	public bool Remove(string key){
-		if(!key){
+		if(key == null){
 			print("key is ArgumentNullException");
 			return false;
 		}

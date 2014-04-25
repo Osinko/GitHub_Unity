@@ -5,7 +5,7 @@ public class BoxVectorMesh : VectorMesh {
 	
 	public Rect rect;
 	
-	Vector3 rectPrev;
+	Rect rectPrev;
 	
 	void Start () {
 		rect = new Rect(0,0,0,0);
