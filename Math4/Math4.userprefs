@@ -1,15 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\userLib\AnimationSinVectorMesh.cs">
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\bitbucket_unity\MathTest\Assets\MathTest1.cs">
     <Files>
-      <File FileName="Assets\Scripts\base\DrawGraph.cs" Line="77" Column="1" />
-      <File FileName="Assets\Scripts\userLib\AnimationSinVectorMesh.cs" Line="29" Column="18" />
+      <File FileName="..\..\bitbucket_unity\MathTest\Assets\MathTest1.cs" Line="6" Column="17" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="C:\Users\OWNER_Co\Documents\GitHub_Unity\Math4\Assets\Scripts\base\VectorMeshDictionary.cs" line="17" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
