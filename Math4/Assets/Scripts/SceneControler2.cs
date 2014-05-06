@@ -38,14 +38,5 @@ public class SceneControler2 : MonoBehaviour {
 		
 		
 	}
-	
-	void Update ()
-	{
-		
-		if(Input.GetMouseButton(0)){
-		}
-		
-		if( Input.GetButton("Jump")){
-		}
-	}
+
 }

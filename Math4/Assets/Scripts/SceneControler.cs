@@ -3,7 +3,9 @@ using System.Collections;
 
 public class SceneControler : MonoBehaviour {
 
+	[Range(0.2f,5.0f)]
 	public float Amplitude=3;	//振幅
+	[Range(0.3f,10.0f)]
 	public float speed=5;		//周期速度
 	public float sinPos;
 	public float cosPos;
@@ -21,6 +23,10 @@ public class SceneControler : MonoBehaviour {
 	public GameObject drawGraphSin;
 	public GameObject drawGraphCos;
 
+	public Material pirticleMat;
+
+	Vector3 camStartPosition;
+	Quaternion camStartRotation;
 
 	public void Awake ()
 	{
@@ -37,10 +43,31 @@ public class SceneControler : MonoBehaviour {
 		drawGraphCos.transform.position = sinCurvePosition.transform.position;
 
 
-		sinCosPS = gameObject.AddComponent<ParticleSystem>() as ParticleSystem;
+		sinCosPS = gameObject.GetComponent<ParticleSystem>() as ParticleSystem;
 		sinCosPS.Stop();
 		sinCosPSpoints = new ParticleSystem.Particle[3];
 
+		GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
+		camStartPosition = cam.transform.position;
+		camStartRotation = cam.transform.rotation;
+
+		AwakeGetSceneTextMesh();
+
+	}
+
+	TextMesh text_amplitude;
+	TextMesh text_speed;
+	TextMesh text_theta;
+	TextMesh text_sin;
+	TextMesh text_cos;
+
+	void AwakeGetSceneTextMesh ()
+	{
+		text_amplitude = GameObject.Find("text_amplitude").GetComponent<TextMesh>();
+		text_speed = GameObject.Find("text_speed").GetComponent<TextMesh>();
+		text_theta = GameObject.Find("text_theta").GetComponent<TextMesh>();
+		text_sin = GameObject.Find("text_sin").GetComponent<TextMesh>();
+		text_cos = GameObject.Find("text_cos").GetComponent<TextMesh>();
 	}
 
 	void Start ()
@@ -49,15 +76,56 @@ public class SceneControler : MonoBehaviour {
 	}
 	
 	void Update () {
-
+		SceneJoyControl();
+		
 		diffTheta = Mathf.PI * 2 /speed;
 		theta += diffTheta * Time.deltaTime;
 		theta %= Mathf.PI * 2;
-		
+
 		sinPos = Amplitude * Mathf.Sin(theta);
 		cosPos = Amplitude * Mathf.Cos(theta);
-		
+
+		text_theta.text= string.Format("θ= {0,4}°",(int)(Mathf.Rad2Deg * theta));
+		text_amplitude.text= string.Format("振幅= {0,9}",Amplitude);
+		text_speed.text= string.Format("周期= {0,9}/1毎秒",speed);
+		text_sin.text= string.Format("Sinθ={0:f4}",sinPos);
+		text_cos.text= string.Format("Cosθ={0:f4}",cosPos);
+
 		PerticleUpdate (sinPos,cosPos);
+	}
+
+	Vector3 stick;
+	float pointLinkTimer;
+	float mouseOrbitTimer;
+
+	void SceneJoyControl ()
+	{
+		stick = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+		speed += stick.x*0.1f;
+		Amplitude += stick.y*0.05f;
+		speed = Mathf.Clamp(speed,0.3f,10.0f);
+		Amplitude = Mathf.Clamp(Amplitude,0.2f,5.0f);
+		if( Input.GetButton("Fire1")){
+			Amplitude=3f;
+			speed=5f;
+			GameObject cam = GameObject.FindGameObjectWithTag("MainCamera");
+			cam.transform.position = camStartPosition;
+			cam.transform.rotation = camStartRotation;
+		}
+
+		if( pointLinkTimer<0 && Input.GetButton("Fire2")){
+			pointLinkTimer=0.5f;
+			drawGraphCos.GetComponent<AnimationSinVectorMesh>().pointLink = !drawGraphCos.GetComponent<AnimationSinVectorMesh>().pointLink;
+			drawGraphSin.GetComponent<AnimationSinVectorMesh>().pointLink = !drawGraphSin.GetComponent<AnimationSinVectorMesh>().pointLink;
+		}
+		pointLinkTimer -= Time.deltaTime;
+
+		if( mouseOrbitTimer<0 && Input.GetMouseButton(1)){
+			mouseOrbitTimer=0.5f;
+			MouseOrbitImproved mo = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<MouseOrbitImproved>();
+			mo.enabled = !mo.enabled;
+		}
+		mouseOrbitTimer -= Time.deltaTime;
 	}
 
 	void ParticleStart ()
@@ -79,6 +147,7 @@ public class SceneControler : MonoBehaviour {
 		sinCosPSpoints [0].position = circlePos;
 		sinCosPSpoints [1].position = sinMovePos;
 		sinCosPSpoints [2].position = cosMovePos;
+		
 		sinCosPS.SetParticles (sinCosPSpoints, sinCosPSpoints.Length);
 	}
 }
