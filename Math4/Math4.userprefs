@@ -1,23 +1,8 @@
 ﻿<Properties>
-<<<<<<< HEAD
   <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\bitbucket_unity\MathTest\Assets\MathTest1.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\bitbucket_unity\MathTest\Assets\MathTest2.cs">
     <Files>
-      <File FileName="..\..\bitbucket_unity\MathTest\Assets\MathTest1.cs" Line="16" Column="26" />
-=======
-<<<<<<< HEAD
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\bitbucket_unity\MathTest\Assets\MathTest1.cs">
-    <Files>
-      <File FileName="..\..\bitbucket_unity\MathTest\Assets\MathTest1.cs" Line="6" Column="17" />
-=======
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SceneControler.cs">
-    <Files>
-      <File FileName="Assets\Scripts\SceneControler.cs" Line="119" Column="48" />
-      <File FileName="Assets\MouseOrbitImproved.cs" Line="5" Column="32" />
->>>>>>> ead83dc25170feea8bdb696d86ea46039e159d6c
->>>>>>> ca0bd6a7befdca91fb93c4e0fbba40fbcc0e1195
+      <File FileName="..\..\bitbucket_unity\MathTest\Assets\MathTest2.cs" Line="9" Column="19" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
