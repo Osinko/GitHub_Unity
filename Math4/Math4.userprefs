@@ -1,9 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\bitbucket_unity\SheetTest\Assets\Sheet.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\bitbucket_unity2\clockMath\Assets\Script\ClockContorl.cs">
     <Files>
-      <File FileName="..\..\bitbucket_unity\SheetTest\Assets\Sheet.cs" Line="100" Column="8" />
-      <File FileName="..\..\bitbucket_unity\SheetTest\Assets\DrawBox.cs" Line="43" Column="3" />
+      <File FileName="..\..\bitbucket_unity2\clockMath\Assets\Script\ClockCalc1.cs" Line="22" Column="33" />
+      <File FileName="..\..\bitbucket_unity2\clockMath\Assets\Script\ClockContorl.cs" Line="67" Column="44" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
