@@ -1,9 +1,17 @@
 ﻿<Properties>
+<<<<<<< HEAD
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="..\..\..\Desktop\xoops_version.php">
     <Files>
       <File FileName="..\..\..\Desktop\xoops_version.php" Line="72" Column="1" />
       <File FileName="..\..\..\Desktop\xoops_version.php" Line="42" Column="3" />
+=======
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\..\bitbucket_unity2\clockMath\Assets\Script\ClockContorl.cs">
+    <Files>
+      <File FileName="..\..\bitbucket_unity2\clockMath\Assets\Script\ClockCalc1.cs" Line="22" Column="33" />
+      <File FileName="..\..\bitbucket_unity2\clockMath\Assets\Script\ClockContorl.cs" Line="67" Column="44" />
+>>>>>>> 2e4d694f58a67fcda8ecf90c1c844e468839cb59
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
